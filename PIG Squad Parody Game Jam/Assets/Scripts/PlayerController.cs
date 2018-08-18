@@ -51,8 +51,15 @@ public class PlayerController : MonoBehaviour
         Vector3 leftLegDeltaMovement = new Vector3(inputThisFrame.leftStickHorizontal, inputThisFrame.leftStickVertical) * footSpeed;
         Vector3 rightLegDeltaMovement = new Vector3(inputThisFrame.rightStickHorizontal, inputThisFrame.rightStickVertical) * footSpeed;
 
+        
         float newDistance = Vector3.Distance(leftFootCharacterController.gameObject.transform.position + leftLegDeltaMovement, rightFootCharacterController.gameObject.transform.position + rightLegDeltaMovement);
+        if (newDistance > maxDistanceBetweenFeet)
+        {
+            leftLegDeltaMovement *= 1 - (newDistance - maxDistanceBetweenFeet);
+            rightLegDeltaMovement *= 1 - (newDistance - maxDistanceBetweenFeet);
+        }
 
+        /*
         // pushing away from other foot
         if (newDistance > currentDistance && newDistance > distanceBetweenFeetToStartDampening)
         {
@@ -61,6 +68,7 @@ public class PlayerController : MonoBehaviour
             leftLegDeltaMovement = new Vector3(inputThisFrame.leftStickHorizontal, inputThisFrame.leftStickVertical) * newFootSpeed;
             rightLegDeltaMovement = new Vector3(inputThisFrame.rightStickHorizontal, inputThisFrame.rightStickVertical) * newFootSpeed;
         }
+        */
 
         leftFootCharacterController.move(leftLegDeltaMovement);
         rightFootCharacterController.move(rightLegDeltaMovement);
