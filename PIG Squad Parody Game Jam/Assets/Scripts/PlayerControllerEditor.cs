@@ -15,12 +15,12 @@ public class PlayerControllerEditor : Editor
         if (playerController.showDebugDistanceCircles)
         {
             Handles.color = Color.black;
-            Handles.DrawWireDisc(playerController.leftFootCharacterController.gameObject.transform.position, Vector3.forward, playerController.maxDistanceBetweenFeet);
-            Handles.DrawWireDisc(playerController.rightFootCharacterController.gameObject.transform.position, Vector3.forward, playerController.maxDistanceBetweenFeet);
+            Handles.DrawWireDisc(playerController.leftFootController.gameObject.transform.position, Vector3.forward, playerController.maxFootDistance);
+            Handles.DrawWireDisc(playerController.rightFootController.gameObject.transform.position, Vector3.forward, playerController.maxFootDistance);
 
             Handles.color = Color.grey;
-            Handles.DrawWireDisc(playerController.leftFootCharacterController.gameObject.transform.position, Vector3.forward, playerController.distanceBetweenFeetToStartDampening);
-            Handles.DrawWireDisc(playerController.rightFootCharacterController.gameObject.transform.position, Vector3.forward, playerController.distanceBetweenFeetToStartDampening);
+            Handles.DrawWireDisc(playerController.leftFootController.gameObject.transform.position, Vector3.forward, playerController.minFootDistance);
+            Handles.DrawWireDisc(playerController.rightFootController.gameObject.transform.position, Vector3.forward, playerController.minFootDistance);
         }
     }
 }

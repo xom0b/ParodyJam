@@ -10,75 +10,153 @@ public class PlayerController : MonoBehaviour
     [Header("Reference Variables")]
     public int playerId = 0;
 
-    public CharacterController2D leftFootCharacterController;
-    public CharacterController2D rightFootCharacterController;
+    public FootController leftFootController;
+    public FootController rightFootController;
+    public Transform bodyTransform;
+    public float dampTime = 1f;
 
     [Header("Movement Variables")]
     public float footSpeed;
-    public float maxDistanceBetweenFeet;
-    public float distanceBetweenFeetToStartDampening;
+    public float footSmoothSpeed;
+    public float stompSpeed;
+    public float maxFootDistance;
+    public float minFootDistance;
 
     [Header("Debug")]
     public bool showDebugDistanceCircles;
 
+    private float oscillator = 0f;
     private Player player;
     private InputState inputThisFrame;
+
+    private Vector3 movingTowards = new Vector3();
+    private Vector3 smoothDampVelocty = Vector3.zero;
+
+    private Foot currentFoot = Foot.None;
+
+    public enum Foot
+    {
+        None,
+        Left,
+        Right
+    }
 
     private struct InputState
     {
         public float leftStickHorizontal;
         public float leftStickVertical;
+        public Vector2 leftStickVector;
         public float rightStickHorizontal;
         public float rightStickVertical;
+        public Vector2 rightStickVector;
+        public bool stomp;
+        public bool onStompDown;
+        public bool onStompUp;
     }
 
-    void Awake()
+    private void Awake()
     {
         player = ReInput.players.GetPlayer(playerId);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        GetInput();
-        MoveLegs();
+        leftFootController.onCollisionEvent += OnFootCollision;
+        rightFootController.onCollisionEvent += OnFootCollision;
+        leftFootController.onFootStompEnd += OnFootStompEnd;
+        rightFootController.onFootStompEnd += OnFootStompEnd;
+        movingTowards = transform.position;
     }
 
-    private void MoveLegs()
+    // Update is called once per frame
+    private void Update()
     {
-        float currentDistance = Vector3.Distance(leftFootCharacterController.gameObject.transform.position, rightFootCharacterController.gameObject.transform.position);
-       
-        Vector3 leftLegDeltaMovement = new Vector3(inputThisFrame.leftStickHorizontal, inputThisFrame.leftStickVertical) * footSpeed;
-        Vector3 rightLegDeltaMovement = new Vector3(inputThisFrame.rightStickHorizontal, inputThisFrame.rightStickVertical) * footSpeed;
+        GetInput();
+        HandleFeet();
+    }
 
-        
-        float newDistance = Vector3.Distance(leftFootCharacterController.gameObject.transform.position + leftLegDeltaMovement, rightFootCharacterController.gameObject.transform.position + rightLegDeltaMovement);
-        if (newDistance > maxDistanceBetweenFeet)
+    private bool oscillatorMovingUp = true;
+
+    private void OnFootCollision(RaycastHit2D raycastHit)
+    {
+        if (raycastHit.collider.gameObject == leftFootController.gameObject)
         {
-            leftLegDeltaMovement *= 1 - (newDistance - maxDistanceBetweenFeet);
-            rightLegDeltaMovement *= 1 - (newDistance - maxDistanceBetweenFeet);
+            Debug.Log("Collided Left Foot!");
         }
-
-        /*
-        // pushing away from other foot
-        if (newDistance > currentDistance && newDistance > distanceBetweenFeetToStartDampening)
+        else if (raycastHit.collider.gameObject == rightFootController.gameObject)
         {
-            float newFootSpeed = footSpeed * Mathf.Clamp(1 - (newDistance - distanceBetweenFeetToStartDampening) / (maxDistanceBetweenFeet - distanceBetweenFeetToStartDampening), 0f, 1f);
-            Debug.Log(newFootSpeed);
-            leftLegDeltaMovement = new Vector3(inputThisFrame.leftStickHorizontal, inputThisFrame.leftStickVertical) * newFootSpeed;
-            rightLegDeltaMovement = new Vector3(inputThisFrame.rightStickHorizontal, inputThisFrame.rightStickVertical) * newFootSpeed;
+            Debug.Log("Collided Right Foot!");
         }
-        */
+    }
 
-        leftFootCharacterController.move(leftLegDeltaMovement);
-        rightFootCharacterController.move(rightLegDeltaMovement);
+    private void OnFootStompEnd(Foot leg)
+    {
+        currentFoot = Foot.None;
+    }
+
+    private void HandleFeet()
+    {
+        switch (currentFoot)
+        {
+            case Foot.None:
+                break;
+            case Foot.Left:
+                if (inputThisFrame.onStompDown)
+                {
+                    leftFootController.TriggerStomp(stompSpeed);
+                }
+                else
+                {
+                    MoveRubberBand(leftFootController);
+                }
+
+                break;
+            case Foot.Right:
+                if (inputThisFrame.onStompDown)
+                {
+                    rightFootController.TriggerStomp(stompSpeed);
+                }
+                else
+                {
+                    MoveRubberBand(rightFootController);
+                }
+
+                break;
+        }
+    }
+
+    private void MoveRubberBand(FootController foot)
+    {
+        Vector3 stickDirection = (foot.foot == Foot.Right) ? inputThisFrame.rightStickVector.normalized : inputThisFrame.leftStickVector.normalized;
+        Vector3 newDirection = Vector3.MoveTowards(movingTowards, stickDirection, footSmoothSpeed * Time.deltaTime);
+        foot.Move(newDirection * Time.deltaTime * footSpeed);
+        movingTowards = newDirection;
     }
 
     private void GetInput()
     {
         inputThisFrame.leftStickHorizontal = player.GetAxis("Left Leg Horizontal");
         inputThisFrame.leftStickVertical = player.GetAxis("Left Leg Vertical");
+        inputThisFrame.leftStickVector = new Vector2(inputThisFrame.leftStickHorizontal, inputThisFrame.leftStickVertical);
         inputThisFrame.rightStickHorizontal = player.GetAxis("Right Leg Horizontal");
         inputThisFrame.rightStickVertical = player.GetAxis("Right Leg Vertical");
+        inputThisFrame.rightStickVector = new Vector2(inputThisFrame.rightStickHorizontal, inputThisFrame.rightStickVertical);
+        inputThisFrame.stomp = player.GetButton("Stomp");
+        inputThisFrame.onStompDown = player.GetButtonDown("Stomp");
+        inputThisFrame.onStompUp = player.GetButtonUp("Stomp");
+
+        if (currentFoot == Foot.None)
+        {
+            if (inputThisFrame.leftStickVector.magnitude > inputThisFrame.rightStickVector.magnitude && inputThisFrame.leftStickVector.magnitude > 0f)
+            {
+                currentFoot = Foot.Left;
+                movingTowards = inputThisFrame.leftStickVector;
+            }
+            else if (inputThisFrame.rightStickVector.magnitude > inputThisFrame.leftStickVector.magnitude && inputThisFrame.rightStickVector.magnitude > 0f)
+            {
+                currentFoot = Foot.Right;
+                movingTowards = inputThisFrame.rightStickVector;
+            }
+        }
     }
 }
