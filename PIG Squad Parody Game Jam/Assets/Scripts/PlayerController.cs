@@ -127,10 +127,27 @@ public class PlayerController : MonoBehaviour
 
     private void MoveRubberBand(FootController foot)
     {
+        Vector3 otherFootPosition = (foot.foot == Foot.Right) ? leftFootController.transform.position : rightFootController.transform.position;
         Vector3 stickDirection = (foot.foot == Foot.Right) ? inputThisFrame.rightStickVector.normalized : inputThisFrame.leftStickVector.normalized;
         Vector3 newDirection = Vector3.MoveTowards(movingTowards, stickDirection, footSmoothSpeed * Time.deltaTime);
-        foot.Move(newDirection * Time.deltaTime * footSpeed);
-        movingTowards = newDirection;
+        Debug.Log("movingTowards: " + movingTowards + "stick direction " + stickDirection);
+        Vector3 nextPosition = foot.transform.position + newDirection * Time.deltaTime * footSpeed;
+        float distanceFromOtherFoot = Vector3.Distance(otherFootPosition, nextPosition);
+        float footSpeedThisFrame = footSpeed;
+
+        if (distanceFromOtherFoot > minFootDistance)
+        {
+            Vector3 directionToNewLocation = (nextPosition - otherFootPosition).normalized;
+            Vector3 nextPoint = otherFootPosition + directionToNewLocation * minFootDistance;
+            Vector3 newDeltaMovement = nextPoint - foot.transform.position;
+            foot.Move(newDeltaMovement);
+            movingTowards = stickDirection;
+        }
+        else
+        {
+            foot.Move(newDirection * Time.deltaTime * footSpeedThisFrame);
+            movingTowards = newDirection;
+        }
     }
 
     private void GetInput()
@@ -156,6 +173,10 @@ public class PlayerController : MonoBehaviour
             {
                 currentFoot = Foot.Right;
                 movingTowards = inputThisFrame.rightStickVector;
+            }
+            else
+            {
+                movingTowards = Vector3.zero;
             }
         }
     }

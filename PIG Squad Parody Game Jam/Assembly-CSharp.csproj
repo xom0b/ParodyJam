@@ -128,6 +128,7 @@
     <Compile Include="Assets\Scripts\FootController.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerControllerEditor.cs" />
+    <Compile Include="Assets\Scripts\RecordSpawner.cs" />
     <Compile Include="Assets\Scripts\TestScripts.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
