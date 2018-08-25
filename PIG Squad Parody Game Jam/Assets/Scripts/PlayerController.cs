@@ -130,7 +130,6 @@ public class PlayerController : MonoBehaviour
         Vector3 otherFootPosition = (foot.foot == Foot.Right) ? leftFootController.transform.position : rightFootController.transform.position;
         Vector3 stickDirection = (foot.foot == Foot.Right) ? inputThisFrame.rightStickVector.normalized : inputThisFrame.leftStickVector.normalized;
         Vector3 newDirection = Vector3.MoveTowards(movingTowards, stickDirection, footSmoothSpeed * Time.deltaTime);
-        Debug.Log("movingTowards: " + movingTowards + "stick direction " + stickDirection);
         Vector3 nextPosition = foot.transform.position + newDirection * Time.deltaTime * footSpeed;
         float distanceFromOtherFoot = Vector3.Distance(otherFootPosition, nextPosition);
         float footSpeedThisFrame = footSpeed;
