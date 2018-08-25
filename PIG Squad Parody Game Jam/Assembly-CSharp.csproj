@@ -61,6 +61,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CurvedLine_2016_03_11\CurvedLine\CurvedLinePoint.cs" />
+    <Compile Include="Assets\CurvedLine_2016_03_11\CurvedLine\CurvedLineRenderer.cs" />
+    <Compile Include="Assets\CurvedLine_2016_03_11\CurvedLine\LineSmoother.cs" />
     <Compile Include="Assets\Prime31 Character Controller\CharacterController2D\CharacterController2D.cs" />
     <Compile Include="Assets\Prime31 Character Controller\demo\scripts\DemoScene.cs" />
     <Compile Include="Assets\Prime31 Character Controller\demo\scripts\SmoothFollow.cs" />
@@ -126,6 +129,8 @@
     <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
     <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
     <Compile Include="Assets\Scripts\FootController.cs" />
+    <Compile Include="Assets\Scripts\LineRendererToLeg.cs" />
+    <Compile Include="Assets\Scripts\LineRendererToLegEditor.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerControllerEditor.cs" />
     <Compile Include="Assets\Scripts\RecordSpawner.cs" />
