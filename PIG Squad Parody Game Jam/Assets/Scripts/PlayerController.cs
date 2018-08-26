@@ -163,12 +163,12 @@ public class PlayerController : MonoBehaviour
 
         if (currentFoot == Foot.None)
         {
-            if (inputThisFrame.leftStickVector.magnitude > inputThisFrame.rightStickVector.magnitude && inputThisFrame.leftStickVector.magnitude > 0f)
+            if (inputThisFrame.leftStickVector.magnitude > inputThisFrame.rightStickVector.magnitude && inputThisFrame.leftStickVector.magnitude > 0f && !inputThisFrame.stomp)
             {
                 currentFoot = Foot.Left;
                 movingTowards = inputThisFrame.leftStickVector;
             }
-            else if (inputThisFrame.rightStickVector.magnitude > inputThisFrame.leftStickVector.magnitude && inputThisFrame.rightStickVector.magnitude > 0f)
+            else if (inputThisFrame.rightStickVector.magnitude > inputThisFrame.leftStickVector.magnitude && inputThisFrame.rightStickVector.magnitude > 0f && !inputThisFrame.stomp)
             {
                 currentFoot = Foot.Right;
                 movingTowards = inputThisFrame.rightStickVector;

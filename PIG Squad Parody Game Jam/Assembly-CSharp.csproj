@@ -131,8 +131,10 @@
     <Compile Include="Assets\Scripts\FootController.cs" />
     <Compile Include="Assets\Scripts\LineRendererToLeg.cs" />
     <Compile Include="Assets\Scripts\LineRendererToLegEditor.cs" />
+    <Compile Include="Assets\Scripts\OnTriggerEnterTest.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerControllerEditor.cs" />
+    <Compile Include="Assets\Scripts\RecordController.cs" />
     <Compile Include="Assets\Scripts\RecordSpawner.cs" />
     <Compile Include="Assets\Scripts\TestScripts.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

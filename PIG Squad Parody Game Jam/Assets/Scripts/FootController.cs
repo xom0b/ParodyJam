@@ -51,8 +51,7 @@ public class FootController : MonoBehaviour
     }
 
     private void OnStompEnd()
-    {
-        Debug.Log("On Stomp End!");
+    { 
         footMovementState = FootMovementState.Idle;
         onFootStompEnd(foot);
     }
