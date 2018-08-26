@@ -4,7 +4,10 @@ using Prime31;
 
 public class RecordController : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
+    public GameObject duragAnimation;
+    public GameObject overallAnimation;
+    public GameObject tophatAnimation;
+    public GameObject stinkyAnimation;
     public RecordSpawner.RecordType recordType;
     public RecordSpawner.Costume recordFlavor;
     public float moveSpeed;
@@ -15,15 +18,15 @@ public class RecordController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "RecordKiller")
+        if (collision.gameObject.tag == "RecordKiller" && onTriggerEnter != null)
         {
             onTriggerEnter(this, collision);
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.tag == "Foot")
+        if (collision.gameObject.tag == "Foot" && onTriggerEnter != null)
         {
-            onTriggerEnter(this, collision);
+            onTriggerEnter(this, collision);   
         }
     }
 

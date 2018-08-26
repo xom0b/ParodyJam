@@ -12,9 +12,6 @@ public class RecordSpawner : MonoBehaviour
     public float minRecordSpawnSpeed;
     public float maxRecordSpawnSpeed;
 
-    public Sprite goodRecordSprite;
-    public Sprite badRecordSprite;
-
     [Tooltip("Left margin indicated bad record probability. Right margin indicates good recordProbaility")]
     [Range(0f, 1f)]
     public float recordSpawnRatio;
@@ -92,21 +89,36 @@ public class RecordSpawner : MonoBehaviour
         recordController.transform.position = transform.position;
         recordController.recordType = recordType;
 
-        if (recordController.recordType == RecordType.Good)
+        if (recordType == RecordType.Bad)
         {
-            recordController.spriteRenderer.sprite = goodRecordSprite;
+            recordController.stinkyAnimation.SetActive(true);
         }
         else
         {
-            recordController.spriteRenderer.sprite = badRecordSprite;
+            int range = Random.Range(0, 3);
+            switch(range)
+            {
+                case 0:
+                    recordController.duragAnimation.SetActive(true);
+                    break;
+                case 1:
+                    recordController.overallAnimation.SetActive(true);
+                    break;
+                case 2:
+                    recordController.tophatAnimation.SetActive(true);
+                    break;
+            }
         }
-        
 
         recordController.moveDirection = moveDirection;
+
+        if (moveDirection.x < 0)
+        {
+            recordController.transform.localScale = new Vector3(recordController.transform.localScale.x * -1f, recordController.transform.localScale.y, recordController.transform.localScale.z);
+        }
+
         float recordMoveSpeed = Random.Range(minRecordSpawnSpeed, maxRecordSpawnSpeed);
         recordController.moveSpeed = recordMoveSpeed;
         recordController.onTriggerEnter += OnRecordCollision;
     }
-
-
 }
