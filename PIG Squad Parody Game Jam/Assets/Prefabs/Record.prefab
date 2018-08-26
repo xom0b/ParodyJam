@@ -97,7 +97,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4037215400492500
 Transform:
   m_ObjectHideFlags: 1
@@ -199,9 +199,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.15}
   serializedVersion: 2
-  m_Radius: 0.45
+  m_Radius: 0.35
 --- !u!95 &95141124588189494
 Animator:
   serializedVersion: 3
@@ -289,6 +289,7 @@ MonoBehaviour:
   overallAnimation: {fileID: 1676083841722150}
   tophatAnimation: {fileID: 1077523816307662}
   stinkyAnimation: {fileID: 1997784610282600}
+  deathAnimation: {fileID: 0}
   recordType: 0
   recordFlavor: 0
   moveSpeed: 0
