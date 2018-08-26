@@ -128,6 +128,8 @@
     <Compile Include="Assets\Rewired\Internal\Scripts\InputManager.cs" />
     <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
     <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
+    <Compile Include="Assets\Scripts\CameraShake.cs" />
+    <Compile Include="Assets\Scripts\DestroyAnimationUtility.cs" />
     <Compile Include="Assets\Scripts\FootController.cs" />
     <Compile Include="Assets\Scripts\LineRendererToLeg.cs" />
     <Compile Include="Assets\Scripts\LineRendererToLegEditor.cs" />

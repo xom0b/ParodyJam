@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     public FootController rightFootController;
     public Transform bodyTransform;
     public float dampTime = 1f;
+    public Animator bodyAnimator;
+    public CameraShake cameraShake;
+    public float cameraShakeDuration;
 
     [Header("Movement Variables")]
     public float footSpeed;
@@ -92,6 +95,7 @@ public class PlayerController : MonoBehaviour
     private void OnFootStompEnd(Foot leg)
     {
         currentFoot = Foot.None;
+        cameraShake.shakeDuration = cameraShakeDuration;
     }
 
     private void HandleFeet()
@@ -104,6 +108,7 @@ public class PlayerController : MonoBehaviour
                 if (inputThisFrame.onStompDown)
                 {
                     leftFootController.TriggerStomp(stompSpeed);
+                    bodyAnimator.Play("stomp");
                 }
                 else
                 {
@@ -115,6 +120,7 @@ public class PlayerController : MonoBehaviour
                 if (inputThisFrame.onStompDown)
                 {
                     rightFootController.TriggerStomp(stompSpeed);
+                    bodyAnimator.Play("stomp");
                 }
                 else
                 {

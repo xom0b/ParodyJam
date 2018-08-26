@@ -5,6 +5,7 @@ using UnityEngine;
 public class RecordSpawner : MonoBehaviour
 {
     public GameObject record;
+    public GameObject recordKillAnimation;
 
     public Vector2 moveDirection;
     public float minTimeBetweenRecordsSeconds;
@@ -120,5 +121,12 @@ public class RecordSpawner : MonoBehaviour
         float recordMoveSpeed = Random.Range(minRecordSpawnSpeed, maxRecordSpawnSpeed);
         recordController.moveSpeed = recordMoveSpeed;
         recordController.onTriggerEnter += OnRecordCollision;
+        recordController.onDestroy += SpawnRecordKillAnimation;
+    }
+
+    private void SpawnRecordKillAnimation(Transform transform)
+    {
+        GameObject spawnedRecordKillAnimation = Instantiate(recordKillAnimation);
+        spawnedRecordKillAnimation.transform.position = transform.position;
     }
 }
