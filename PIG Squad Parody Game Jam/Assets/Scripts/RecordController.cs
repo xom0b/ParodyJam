@@ -18,6 +18,8 @@ public class RecordController : MonoBehaviour
 
     private Vector3 deltaMovement = new Vector3();
 
+    private bool killedByBoot = false;
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (onTriggerEnter == null && collision.gameObject.tag != "Floor")
@@ -26,12 +28,14 @@ public class RecordController : MonoBehaviour
         }
         if (collision.gameObject.tag == "RecordKiller" && onTriggerEnter != null)
         {
+            killedByBoot = false;
             onTriggerEnter(this, collision);
             Destroy(gameObject);
         }
 
         if (collision.gameObject.tag == "Foot" && onTriggerEnter != null)
         {
+            killedByBoot = true;
             onTriggerEnter(this, collision);   
         }
     }
@@ -55,10 +59,13 @@ public class RecordController : MonoBehaviour
     {
         if (onDestroy != null)
         {
-            IntegrityManager integrityManager;
-            if (IntegrityManager.TryGetInstance(out integrityManager))
+            if (!killedByBoot)
             {
-                integrityManager.KilledRecord(recordType);
+                IntegrityManager integrityManager;
+                if (IntegrityManager.TryGetInstance(out integrityManager))
+                {
+                    integrityManager.KilledRecord(recordType);
+                }
             }
 
             onDestroy(transform);
