@@ -127,6 +127,7 @@ public class IntegrityManager : MonoBehaviour
 
                 currentTime += Time.deltaTime;
 
+                /*
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     currentTime += 60f;
@@ -139,6 +140,7 @@ public class IntegrityManager : MonoBehaviour
                 {
                     currentIntegrity = 0;
                 }
+                */
 
                 UpdateUI();
                 UpdateSpawners();
