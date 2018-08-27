@@ -38,7 +38,14 @@ public class RecordSpawner : MonoBehaviour
 
     private void Update()
     {
-        CheckForRecordSpawn();
+        IntegrityManager integrityManager;
+        if (IntegrityManager.TryGetInstance(out integrityManager))
+        {
+            if (integrityManager.gameState != IntegrityManager.GameState.Paused)
+            {
+                CheckForRecordSpawn();
+            }
+        }
     }
 
     private void CheckForRecordSpawn()

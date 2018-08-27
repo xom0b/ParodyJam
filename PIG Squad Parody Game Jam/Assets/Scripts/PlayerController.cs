@@ -77,8 +77,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        GetInput();
-        HandleFeet();
+        IntegrityManager integrityManager;
+        if (IntegrityManager.TryGetInstance(out integrityManager))
+        {
+            if (integrityManager.gameState != IntegrityManager.GameState.Paused)
+            {
+                GetInput();
+                HandleFeet();
+            }
+        }
     }
 
     private bool oscillatorMovingUp = true;

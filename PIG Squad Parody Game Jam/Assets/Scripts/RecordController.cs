@@ -52,7 +52,14 @@ public class RecordController : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.position += deltaMovement;
+        IntegrityManager integrityManager;
+        if (IntegrityManager.TryGetInstance(out integrityManager))
+        {
+            if (integrityManager.gameState != IntegrityManager.GameState.Paused)
+            {
+                transform.position += deltaMovement;
+            }
+        }
     }
 
     private void OnDestroy()

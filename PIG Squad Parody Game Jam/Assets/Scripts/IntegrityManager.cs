@@ -27,6 +27,7 @@ public class IntegrityManager : MonoBehaviour
     public GameObject integrityBar;
     public GameObject mainMenu;
     public GameObject endGameMenu;
+    public GameObject pauseMenu;
     public RectTransform integrityContainer;
     public RectTransform integrityIndicator;
     public float minOffset;
@@ -59,14 +60,15 @@ public class IntegrityManager : MonoBehaviour
 
     private Player player;
 
-    private enum GameState
+    public enum GameState
     {
         Intro,
         Playing,
-        End
+        End,
+        Paused
     }
 
-    private GameState gameState = GameState.Intro;
+    public GameState gameState = GameState.Intro;
 
     private void Awake()
     {
@@ -112,6 +114,10 @@ public class IntegrityManager : MonoBehaviour
                 {
                     StartGame();
                 }
+                else if (player.GetButtonUp("Quit"))
+                {
+                    Application.Quit();
+                }
                 break;
             case GameState.Playing:
 
@@ -133,6 +139,11 @@ public class IntegrityManager : MonoBehaviour
                 UpdateUI();
                 UpdateSpawners();
 
+                if (player.GetButtonUp("Pause"))
+                {
+                    PauseGame();
+                }
+
                 if (currentIntegrity <= 0)
                 {
                     EndGame();
@@ -147,7 +158,31 @@ public class IntegrityManager : MonoBehaviour
                 }
 
                 break;
+            case GameState.Paused:
+                if (player.GetButtonUp("Resume"))
+                {
+                    UnpauseGame();
+                }
+                else if (player.GetButtonUp("Restart"))
+                {
+                    pauseMenu.SetActive(false);
+                    EndGame(false);
+                    ResetToMainMenu();
+                }
+                break;
         }
+    }
+
+    private void PauseGame()
+    {
+        gameState = GameState.Paused;
+        pauseMenu.SetActive(true);
+    }
+
+    private void UnpauseGame()
+    {
+        gameState = GameState.Playing;
+        pauseMenu.SetActive(false);
     }
 
     private void ResetToMainMenu()
@@ -191,9 +226,13 @@ public class IntegrityManager : MonoBehaviour
         }
     }
 
-    private void EndGame()
+    private void EndGame(bool setEndMenuActive = true)
     {
-        endGameMenu.SetActive(true);
+        if (setEndMenuActive)
+        {
+            endGameMenu.SetActive(true);
+        }
+
         spawnerLeft.SetActive(false);
         spawnerRight.SetActive(false);
         DestroyAllRecords();
