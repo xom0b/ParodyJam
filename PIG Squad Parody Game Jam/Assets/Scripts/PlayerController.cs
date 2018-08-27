@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     public Animator bodyAnimator;
     public CameraShake cameraShake;
     public float cameraShakeDuration;
+    public GameObject mudSplat;
+    public float mudSplatY;
+    public float mudSplatXOffset;
 
     [Header("Movement Variables")]
     public float footSpeed;
@@ -94,6 +97,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnFootStompEnd(Foot leg)
     {
+        GameObject splat = Instantiate(mudSplat);
+        float splatX;
+        if (leg == Foot.Left)
+        {
+            splatX = leftFootController.transform.position.x + mudSplatXOffset;
+        }
+        else
+        {
+            splatX = rightFootController.transform.position.x + mudSplatXOffset;
+        }
+
+        splat.transform.position = new Vector2(splatX, mudSplatY);
+
         currentFoot = Foot.None;
         cameraShake.shakeDuration = cameraShakeDuration;
     }
