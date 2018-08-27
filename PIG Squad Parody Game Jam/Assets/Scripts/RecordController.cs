@@ -14,7 +14,7 @@ public class RecordController : MonoBehaviour
     public float moveSpeed;
     public Vector2 moveDirection;
     public event Action<RecordController, Collider2D> onTriggerEnter;
-    public event Action<Transform> onDestroy;
+    public event Action<Transform, bool> onDestroy;
 
     private Vector3 deltaMovement = new Vector3();
 
@@ -66,9 +66,13 @@ public class RecordController : MonoBehaviour
                 {
                     integrityManager.KilledRecord(recordType);
                 }
-            }
 
-            onDestroy(transform);
+                onDestroy(transform, false);
+            }
+            else
+            {
+                onDestroy(transform, true);
+            }
         }
     }
 }

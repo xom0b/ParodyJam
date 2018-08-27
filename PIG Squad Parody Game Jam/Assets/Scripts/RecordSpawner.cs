@@ -125,9 +125,12 @@ public class RecordSpawner : MonoBehaviour
         recordController.onDestroy += SpawnRecordKillAnimation;
     }
 
-    private void SpawnRecordKillAnimation(Transform transform)
+    private void SpawnRecordKillAnimation(Transform transform, bool killedByFoot)
     {
-        GameObject spawnedRecordKillAnimation = Instantiate(recordKillAnimation);
-        spawnedRecordKillAnimation.transform.position = transform.position + recordSpawnOffset;
+        if (killedByFoot)
+        {
+            GameObject spawnedRecordKillAnimation = Instantiate(recordKillAnimation);
+            spawnedRecordKillAnimation.transform.position = transform.position + recordSpawnOffset;
+        }
     }
 }
