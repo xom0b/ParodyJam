@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
             if (integrityManager.gameState != IntegrityManager.GameState.Paused)
             {
                 GetInput();
-                HandleFeet();
+        HandleFeet();
             }
         }
     }
@@ -163,19 +163,8 @@ public class PlayerController : MonoBehaviour
         float distanceFromOtherFoot = Vector3.Distance(otherFootPosition, nextPosition);
         float footSpeedThisFrame = footSpeed;
 
-        if (distanceFromOtherFoot > minFootDistance)
-        {
-            Vector3 directionToNewLocation = (nextPosition - otherFootPosition).normalized;
-            Vector3 nextPoint = otherFootPosition + directionToNewLocation * minFootDistance;
-            Vector3 newDeltaMovement = nextPoint - foot.transform.position;
-            foot.Move(newDeltaMovement);
-            movingTowards = stickDirection;
-        }
-        else
-        {
-            foot.Move(newDirection * Time.deltaTime * footSpeedThisFrame);
-            movingTowards = newDirection;
-        }
+        foot.Move(newDirection * Time.deltaTime * footSpeedThisFrame);
+        movingTowards = newDirection;
     }
 
     private void GetInput()
