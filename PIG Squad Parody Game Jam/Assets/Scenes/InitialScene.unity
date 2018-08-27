@@ -1722,7 +1722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 0
-  maxIntegrity: 200
+  maxIntegrity: 100
   goodRecordIntegrity: 1
   badRecordIntegrity: -5
   maxTimeMinutes: 3
