@@ -131,6 +131,7 @@
     <Compile Include="Assets\Scripts\CameraShake.cs" />
     <Compile Include="Assets\Scripts\DestroyAnimationUtility.cs" />
     <Compile Include="Assets\Scripts\FootController.cs" />
+    <Compile Include="Assets\Scripts\IntegrityManager.cs" />
     <Compile Include="Assets\Scripts\LineRendererToLeg.cs" />
     <Compile Include="Assets\Scripts\LineRendererToLegEditor.cs" />
     <Compile Include="Assets\Scripts\OnTriggerEnterTest.cs" />

@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032586016009686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.23, y: -2.726, z: 0}
+  m_LocalPosition: {x: -7.23, y: -2.62, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,11 +55,12 @@ MonoBehaviour:
   record: {fileID: 1619700069196222, guid: aacb95400fa0b3a4091c7a31079264f5, type: 2}
   recordKillAnimation: {fileID: 1111026600165138, guid: a8b73f08bd7220c449099c87380f9f83,
     type: 2}
+  recordSpawnOffset: {x: 0, y: 0.254829, z: 0}
   moveDirection: {x: 1, y: 0}
-  minTimeBetweenRecordsSeconds: 1
-  maxTimeBetweenRecordsSeconds: 2
-  minRecordSpawnSpeed: 1
-  maxRecordSpawnSpeed: 2
+  minTimeBetweenRecordsSeconds: 2
+  maxTimeBetweenRecordsSeconds: 3
+  minRecordSpawnSpeed: 2
+  maxRecordSpawnSpeed: 3
   recordSpawnRatio: 0.5
 --- !u!212 &212890871291420164
 SpriteRenderer:

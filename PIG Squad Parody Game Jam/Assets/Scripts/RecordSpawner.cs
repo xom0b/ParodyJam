@@ -7,6 +7,7 @@ public class RecordSpawner : MonoBehaviour
     public GameObject record;
     public GameObject recordKillAnimation;
 
+    public Vector3 recordSpawnOffset;
     public Vector2 moveDirection;
     public float minTimeBetweenRecordsSeconds;
     public float maxTimeBetweenRecordsSeconds;
@@ -127,6 +128,6 @@ public class RecordSpawner : MonoBehaviour
     private void SpawnRecordKillAnimation(Transform transform)
     {
         GameObject spawnedRecordKillAnimation = Instantiate(recordKillAnimation);
-        spawnedRecordKillAnimation.transform.position = transform.position;
+        spawnedRecordKillAnimation.transform.position = transform.position + recordSpawnOffset;
     }
 }

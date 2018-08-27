@@ -55,6 +55,12 @@ public class RecordController : MonoBehaviour
     {
         if (onDestroy != null)
         {
+            IntegrityManager integrityManager;
+            if (IntegrityManager.TryGetInstance(out integrityManager))
+            {
+                integrityManager.KilledRecord(recordType);
+            }
+
             onDestroy(transform);
         }
     }
