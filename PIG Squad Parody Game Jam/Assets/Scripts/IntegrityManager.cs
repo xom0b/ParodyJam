@@ -29,7 +29,7 @@ public class IntegrityManager : MonoBehaviour
     public GameObject endGameMenu;
     public GameObject pauseMenu;
     public RectTransform integrityContainer;
-    public RectTransform integrityIndicator;
+    public Transform integrityIndicator;
     public float minOffset;
     public float maxOffset;
     public float integritySmooth;
@@ -94,6 +94,10 @@ public class IntegrityManager : MonoBehaviour
 
         spawnerLeft.SetActive(false);
         spawnerRight.SetActive(false);
+
+        float absoluteIndicatorDistance = Mathf.Abs(minOffset) - Mathf.Abs(maxOffset);
+        float position = absoluteIndicatorDistance * 0.5f;
+        currentOffset = minOffset + position;
 
         player = ReInput.players.GetPlayer(playerId);
     }
@@ -256,7 +260,7 @@ public class IntegrityManager : MonoBehaviour
     {
         currentIntegrity = Mathf.Clamp(currentIntegrity, 0, maxIntegrity);
         float currentFloatPercentage = (float)currentIntegrity / (float)maxIntegrity;
-        float absoluteIndicatorDistance = Mathf.Abs(maxOffset) + Mathf.Abs(minOffset);
+        float absoluteIndicatorDistance = Mathf.Abs(minOffset) - Mathf.Abs(maxOffset);
         float position = absoluteIndicatorDistance * currentFloatPercentage;
         targetOffset = minOffset + position;
         currentOffset = Mathf.SmoothDamp(currentOffset, targetOffset, ref integrityVelocity, integritySmooth);
