@@ -1770,13 +1770,13 @@ MonoBehaviour:
   playerId: 0
   maxIntegrity: 100
   goodRecordIntegrity: 1
-  badRecordIntegrity: -5
+  badRecordIntegrity: -3
   maxTimeMinutes: 3
-  maxMinTimeBetweenRecords: 1
-  maxMaxTimeBetweenRecords: 2
-  maxMinSpawnSpeed: 4
-  maxMaxSpawnSpeed: 6
-  maxRecordSpawnRatio: 0.75
+  maxMinTimeBetweenRecords: 0.5
+  maxMaxTimeBetweenRecords: 1.5
+  maxMinSpawnSpeed: 3
+  maxMaxSpawnSpeed: 5
+  maxRecordSpawnRatio: 0.6
   integrityBar: {fileID: 1026762559}
   mainMenu: {fileID: 1473235624}
   endGameMenu: {fileID: 1543387750}
