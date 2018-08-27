@@ -6,6 +6,7 @@ public class RecordSpawner : MonoBehaviour
 {
     public GameObject record;
     public GameObject recordKillAnimation;
+    public GameObject badRecordKillAnimation;
 
     public Vector3 recordSpawnOffset;
     public Vector2 moveDirection;
@@ -136,6 +137,12 @@ public class RecordSpawner : MonoBehaviour
     {
         if (killedByFoot)
         {
+            if (transform.GetComponent<RecordController>().recordType == RecordType.Bad)
+            {
+                GameObject newBadRecordKillAnimation = Instantiate(badRecordKillAnimation);
+                newBadRecordKillAnimation.transform.position = transform.position + recordSpawnOffset;
+            }
+
             GameObject spawnedRecordKillAnimation = Instantiate(recordKillAnimation);
             spawnedRecordKillAnimation.transform.position = transform.position + recordSpawnOffset;
         }
