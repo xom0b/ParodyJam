@@ -2,9 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class IntegrityManager : MonoBehaviour
 {
+    [Header("Input")]
+    public int playerId;
+
     [Header("Integrity")]
     public int maxIntegrity;
     public int goodRecordIntegrity;
@@ -20,11 +24,18 @@ public class IntegrityManager : MonoBehaviour
     public float maxRecordSpawnRatio;
 
     [Header("UI")]
+    public GameObject integrityBar;
+    public GameObject mainMenu;
+    public GameObject endGameMenu;
     public RectTransform integrityContainer;
     public RectTransform integrityIndicator;
     public float minOffset;
     public float maxOffset;
     public float integritySmooth;
+
+    [Header("Game References")]
+    public GameObject spawnerRight;
+    public GameObject spawnerLeft;
     
 
     [HideInInspector]
@@ -38,7 +49,6 @@ public class IntegrityManager : MonoBehaviour
     private float integrityVelocity;
     private float maxTimeSeconds;
 
-
     private float startingMinTimeBetweenRecords;
     private float startingMaxTimeBetweenRecords;
     private float startingMinRecordSpawnSpeed;
@@ -47,6 +57,8 @@ public class IntegrityManager : MonoBehaviour
 
     private RecordSpawner[] recordSpawners;
 
+    private Player player;
+
     private enum GameState
     {
         Intro,
@@ -54,7 +66,7 @@ public class IntegrityManager : MonoBehaviour
         End
     }
 
-    private GameState gameState = GameState.Playing;
+    private GameState gameState = GameState.Intro;
 
     private void Awake()
     {
@@ -77,6 +89,11 @@ public class IntegrityManager : MonoBehaviour
         startingMinRecordSpawnSpeed = recordSpawners[0].minRecordSpawnSpeed;
         startingMaxRecordSpawnSpeed = recordSpawners[0].maxRecordSpawnSpeed;
         startingRecordSpawnRatio = recordSpawners[0].recordSpawnRatio;
+
+        spawnerLeft.SetActive(false);
+        spawnerRight.SetActive(false);
+
+        player = ReInput.players.GetPlayer(playerId);
     }
 
     public static bool TryGetInstance(out IntegrityManager manager)
@@ -90,6 +107,11 @@ public class IntegrityManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.Intro:
+
+                if (player.GetButtonUp("Start Game"))
+                {
+                    StartGame();
+                }
                 break;
             case GameState.Playing:
 
@@ -97,30 +119,52 @@ public class IntegrityManager : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    //currentIntegrity += 50;
                     currentTime += 60f;
                 }
                 else if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     currentTime -= 30f;
-                    // -= 4;
+                }
+                else if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    currentIntegrity = 0;
                 }
 
                 UpdateUI();
                 UpdateSpawners();
 
-                if (currentIntegrity >= maxIntegrity)
+                if (currentIntegrity <= 0)
                 {
                     EndGame();
                 }
 
                 break;
             case GameState.End:
+
+                if (player.GetButtonUp("Start Game"))
+                {
+                    ResetToMainMenu();
+                }
+
                 break;
         }
+    }
 
-        Debug.Log(currentIntegrity);
-        
+    private void ResetToMainMenu()
+    {
+        gameState = GameState.Intro;
+        mainMenu.SetActive(true);
+        endGameMenu.SetActive(false);
+        integrityBar.SetActive(false);
+    }
+
+    private void StartGame()
+    {
+        gameState = GameState.Playing;
+        mainMenu.SetActive(false);
+        spawnerLeft.SetActive(true);
+        spawnerRight.SetActive(true);
+        integrityBar.SetActive(true);
     }
 
     private void UpdateSpawners()
@@ -149,7 +193,24 @@ public class IntegrityManager : MonoBehaviour
 
     private void EndGame()
     {
-        Debug.Log("Game Over!!");
+        endGameMenu.SetActive(true);
+        spawnerLeft.SetActive(false);
+        spawnerRight.SetActive(false);
+        DestroyAllRecords();
+        gameState = GameState.End;
+        ResetGame();
+        currentTime = 0f;
+        currentIntegrity = maxIntegrity / 2;
+    }
+
+    private void DestroyAllRecords()
+    {
+        RecordController[] records = FindObjectsOfType<RecordController>();
+
+        for(int i = 0; i < records.Length; i++)
+        {
+            Destroy(records[i].gameObject);
+        }
     }
 
     private void UpdateUI()
