@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Rewired;
 
 public class IntegrityManager : MonoBehaviour
@@ -24,6 +25,7 @@ public class IntegrityManager : MonoBehaviour
     public float maxRecordSpawnRatio;
 
     [Header("UI")]
+    public Text timer;
     public GameObject integrityBar;
     public GameObject mainMenu;
     public GameObject endGameMenu;
@@ -65,6 +67,7 @@ public class IntegrityManager : MonoBehaviour
         Intro,
         Playing,
         End,
+        EnteringHighScore,
         Paused
     }
 
@@ -91,6 +94,8 @@ public class IntegrityManager : MonoBehaviour
         startingMinRecordSpawnSpeed = recordSpawners[0].minRecordSpawnSpeed;
         startingMaxRecordSpawnSpeed = recordSpawners[0].maxRecordSpawnSpeed;
         startingRecordSpawnRatio = recordSpawners[0].recordSpawnRatio;
+
+        timer.gameObject.SetActive(false);
 
         spawnerLeft.SetActive(false);
         spawnerRight.SetActive(false);
@@ -150,9 +155,9 @@ public class IntegrityManager : MonoBehaviour
                     PauseGame();
                 }
 
-                if (currentIntegrity <= 0)
+                if (currentIntegrity <= 0 || Input.GetKeyDown(KeyCode.Space))
                 {
-                    EndGame();
+                    EnterScore();
                 }
 
                 break;
@@ -202,6 +207,7 @@ public class IntegrityManager : MonoBehaviour
     private void StartGame()
     {
         gameState = GameState.Playing;
+        timer.gameObject.SetActive(true);
         mainMenu.SetActive(false);
         spawnerLeft.SetActive(true);
         spawnerRight.SetActive(true);
@@ -232,13 +238,33 @@ public class IntegrityManager : MonoBehaviour
         }
     }
 
-    private void EndGame(bool setEndMenuActive = true)
+    private void EnterScore()
+    {
+        LetterInputManager letterInputManager;
+        if (LetterInputManager.TryGetInstance(out letterInputManager))
+        {
+            letterInputManager.gameObject.SetActive(true);
+            letterInputManager.ShowLetterInput(currentTime);
+        }
+
+        timer.gameObject.SetActive(false);
+        spawnerLeft.SetActive(false);
+        spawnerRight.SetActive(false);
+        DestroyAllRecords();
+        gameState = GameState.EnteringHighScore;
+        ResetGame();
+        currentTime = 0f;
+        currentIntegrity = maxIntegrity / 2;
+    }
+
+    public void EndGame(bool setEndMenuActive = true)
     {
         if (setEndMenuActive)
         {
             endGameMenu.SetActive(true);
         }
 
+        timer.gameObject.SetActive(false);
         spawnerLeft.SetActive(false);
         spawnerRight.SetActive(false);
         DestroyAllRecords();
@@ -267,6 +293,7 @@ public class IntegrityManager : MonoBehaviour
         targetOffset = minOffset + position;
         currentOffset = Mathf.SmoothDamp(currentOffset, targetOffset, ref integrityVelocity, integritySmooth);
         integrityIndicator.localPosition = new Vector3(currentOffset, integrityIndicator.localPosition.y);
+        timer.text = currentTime.ToString("F1");
     }
 
     public void KilledRecord(RecordSpawner.RecordType recordType)

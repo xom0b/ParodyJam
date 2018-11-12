@@ -169,3 +169,5 @@ C:\Users\henry\Documents\Game Dev\ParodyJam\PIG Squad Parody Game Jam\obj\Debug\
 C:\Users\henry\Documents\Game Dev\ParodyJam\PIG Squad Parody Game Jam\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\henry\Documents\Game Dev\ParodyJam\PIG Squad Parody Game Jam\obj\Debug\Assembly-CSharp.dll
 C:\Users\henry\Documents\Game Dev\ParodyJam\PIG Squad Parody Game Jam\obj\Debug\Assembly-CSharp.pdb
+C:\Users\henry\Documents\Game Dev\ParodyJam\PIG Squad Parody Game Jam\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
+C:\Users\henry\Documents\Game Dev\ParodyJam\PIG Squad Parody Game Jam\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.xml

@@ -80,10 +80,10 @@ public class PlayerController : MonoBehaviour
         IntegrityManager integrityManager;
         if (IntegrityManager.TryGetInstance(out integrityManager))
         {
-            if (integrityManager.gameState != IntegrityManager.GameState.Paused)
+            if (integrityManager.gameState != IntegrityManager.GameState.Paused && integrityManager.gameState != IntegrityManager.GameState.EnteringHighScore)
             {
                 GetInput();
-        HandleFeet();
+                HandleFeet();
             }
         }
     }
