@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("Debug")]
     public bool showDebugDistanceCircles;
 
+    private bool playerActive;
     private float oscillator = 0f;
     private Player player;
     private InputState inputThisFrame;
@@ -73,22 +74,15 @@ public class PlayerController : MonoBehaviour
         rightFootController.onFootStompEnd += OnFootStompEnd;
         movingTowards = transform.position;
     }
-
-    // Update is called once per frame
+    
     private void Update()
     {
-        IntegrityManager integrityManager;
-        if (IntegrityManager.TryGetInstance(out integrityManager))
+        if (playerActive)
         {
-            if (integrityManager.gameState != IntegrityManager.GameState.Paused && integrityManager.gameState != IntegrityManager.GameState.EnteringHighScore)
-            {
-                GetInput();
-                HandleFeet();
-            }
+            GetInput();
+            HandleFeet();
         }
     }
-
-    private bool oscillatorMovingUp = true;
 
     private void OnFootCollision(RaycastHit2D raycastHit)
     {
@@ -196,5 +190,10 @@ public class PlayerController : MonoBehaviour
                 movingTowards = Vector3.zero;
             }
         }
+    }
+
+    public void SetPlayerActive(bool active)
+    {
+        playerActive = active;
     }
 }

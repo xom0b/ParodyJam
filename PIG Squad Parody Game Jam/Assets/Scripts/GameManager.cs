@@ -7,7 +7,14 @@ using Rewired;
 public class GameManager : MonoBehaviour
 {
     [Header("Reference Components")]
+    public PlayerController playerController;
     public Transform cameraTransform;
+    public Animator titleAnimator;
+    public Animator buttonPromptAB;
+    public Animator buttonPromptABXY;
+    public Animator buttonPromptB;
+    public Animator credits;
+    public GameObject tutorialUI;
 
     [Header("Input")]
     public int playerId;
@@ -19,6 +26,10 @@ public class GameManager : MonoBehaviour
     public Vector3 quitCameraPosition;
     public float menuCameraSmoothTime;
     public float timeToQuit;
+    public float panUpWaitTime;
+    public float transitionToMainMenuWaitTime;
+    public float transitionToLeaderboardWaitTime;
+    public float transitionToTitleWaitTime;
 
     [HideInInspector]
     public MenuState menuState = MenuState.Title;
@@ -31,51 +42,71 @@ public class GameManager : MonoBehaviour
         Quitting
     }
 
+    private static GameManager instance;
+
     private Player player;
     private Vector3 currentCameraPosition;
     private Vector3 targetCameraPosition;
     private Vector3 cameraVelocity;
-
     private float quitTimerDelta;
+    private bool waitingForTransition;
 
     private void Awake()
     {
         currentCameraPosition = titleCameraPosition;
         targetCameraPosition = titleCameraPosition;
         cameraTransform.position = titleCameraPosition;
+        instance = this;
+    }
+
+    public static bool TryGetInstance(out GameManager manager)
+    {
+        manager = instance;
+        return (manager != null);
     }
 
     private void Start()
     {
+        buttonPromptAB.gameObject.SetActive(false);
+        buttonPromptABXY.gameObject.SetActive(false);
+        buttonPromptB.gameObject.SetActive(false);
         player = ReInput.players.GetPlayer(playerId);   
     }
 
     // Update is called once per frame
     private void Update()
     {
-        switch(menuState)
+        if (!waitingForTransition)
         {
-            case MenuState.Title:
-                TitleHandler();
-                break;
-            case MenuState.MainMenu:
-                MainMenuHandler();
-                break;
-            case MenuState.Game:
-                GameHandler();
-                break;
-            case MenuState.Leaderboard:
-                LeaderBoardHandler();
-                break;
-            case MenuState.Quitting:
-                QuittingHandler();
-                break;
+            switch (menuState)
+            {
+                case MenuState.Title:
+                    TitleHandler();
+                    break;
+                case MenuState.MainMenu:
+                    MainMenuHandler();
+                    break;
+                case MenuState.Game:
+                    GameHandler();
+                    break;
+                case MenuState.Leaderboard:
+                    LeaderBoardHandler();
+                    break;
+                case MenuState.Quitting:
+                    QuittingHandler();
+                    break;
+            }
         }
 
         if (currentCameraPosition != targetCameraPosition)
         {
             currentCameraPosition = Vector3.SmoothDamp(currentCameraPosition, targetCameraPosition, ref cameraVelocity, menuCameraSmoothTime);
         }
+    }
+
+    private void GameHandler()
+    {
+
     }
 
     private void LateUpdate()
@@ -91,16 +122,33 @@ public class GameManager : MonoBehaviour
         // press A or start
         if (player.GetButtonDown("Start Game"))
         {
-            targetCameraPosition = mainMenuCameraPosition;
-            menuState = MenuState.MainMenu;
+            waitingForTransition = true;
+            titleAnimator.SetTrigger("titleOutTrigger");
+            buttonPromptAB.SetTrigger("outTrigger");
+            Invoke("WaitForPanUp", panUpWaitTime);            
         }
         // press B
         else if (player.GetButtonDown("Resume"))
         {
+            titleAnimator.SetTrigger("titleOutTrigger");
+            buttonPromptAB.SetTrigger("outTrigger");
             quitTimerDelta = 0f;
             targetCameraPosition = quitCameraPosition;
-            menuState = MenuState.Quitting;
+            SetMenuState(MenuState.Quitting);
         }
+    }
+
+    private void WaitForPanUp()
+    {
+        targetCameraPosition = mainMenuCameraPosition;
+        Invoke("TransitionToMainMenu", transitionToMainMenuWaitTime);
+    }
+
+    private void TransitionToMainMenu()
+    {
+        waitingForTransition = false;
+        buttonPromptABXY.gameObject.SetActive(true);
+        SetMenuState(MenuState.MainMenu);
     }
 
     private void MainMenuHandler()
@@ -108,20 +156,67 @@ public class GameManager : MonoBehaviour
         // press Y
         if (player.GetButtonDown("Y"))
         {
+            waitingForTransition = true;
             targetCameraPosition = leaderboardCameraPosition;
-            menuState = MenuState.Leaderboard;
+            buttonPromptABXY.SetTrigger("outTrigger");
+            Invoke("TransitionToLeaderboard", transitionToLeaderboardWaitTime);
         }
-        // press A or start
+        // press A or start - START GAME
         else if (player.GetButtonDown("Start Game"))
         {
-            // TODO: START GAME
+            IntegrityManager integrityManager;
+            if (IntegrityManager.TryGetInstance(out integrityManager))
+            {
+                tutorialUI.SetActive(false);
+
+                if (credits.gameObject.activeInHierarchy)
+                {
+                    credits.SetTrigger("outTrigger");
+                }
+
+                if (buttonPromptABXY.gameObject.activeInHierarchy)
+                {
+                    buttonPromptABXY.SetTrigger("outTrigger");
+                }
+
+                integrityManager.StartIntegrityManager();
+                SetMenuState(MenuState.Game);
+            }
         }
         // press B
         else if (player.GetButtonDown("Resume"))
         {
+            buttonPromptABXY.SetTrigger("outTrigger");
             targetCameraPosition = titleCameraPosition;
-            menuState = MenuState.Title;
+            Invoke("TransitionToTitle", transitionToTitleWaitTime);
         }
+        else if (player.GetButtonDown("X"))
+        {
+            if (credits.gameObject.activeInHierarchy)
+            {
+                credits.SetTrigger("outTrigger");
+            }
+            else
+            {
+                credits.gameObject.SetActive(true);
+                credits.SetTrigger("inTrigger");
+            }
+        }
+    }
+
+    private void TransitionToLeaderboard()
+    {
+        waitingForTransition = false;
+        buttonPromptB.gameObject.SetActive(true);
+        SetMenuState(MenuState.Leaderboard);
+    }
+
+    private void TransitionToTitle()
+    {
+        waitingForTransition = false;
+        buttonPromptAB.gameObject.SetActive(true);
+        titleAnimator.gameObject.SetActive(true);
+        SetMenuState(MenuState.Title);
     }
 
     private void LeaderBoardHandler()
@@ -129,14 +224,10 @@ public class GameManager : MonoBehaviour
         // press B
         if (player.GetButton("Resume"))
         {
+            buttonPromptB.SetTrigger("outTrigger");
             targetCameraPosition = mainMenuCameraPosition;
-            menuState = MenuState.MainMenu;
+            Invoke("TransitionToMainMenu", transitionToMainMenuWaitTime);
         }
-    }
-
-    private void GameHandler()
-    {
-
     }
 
     private void QuittingHandler()
@@ -147,8 +238,41 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
+#endif
         }
     }
 
+    public void SetMenuState(MenuState nextState)
+    {
+        switch (nextState)
+        {
+            case MenuState.MainMenu:
+                playerController.SetPlayerActive(true);
+                break;
+            case MenuState.Leaderboard:
+                playerController.SetPlayerActive(false);
+                break;
+            case MenuState.Title:
+                playerController.SetPlayerActive(false);
+                break;
+            case MenuState.Game:
+                break;
+        }
+
+        menuState = nextState;
+    }
+
+    public void TurnOffGameObject(GameObject gO)
+    {
+        gO.SetActive(false);
+    }
+
+    public void OnStartAnimationCompleteCallback()
+    {
+        buttonPromptAB.gameObject.SetActive(true);
+    }
 }

@@ -27,7 +27,6 @@ public class IntegrityManager : MonoBehaviour
     [Header("UI")]
     public Text timer;
     public GameObject integrityBar;
-    public GameObject mainMenu;
     public GameObject endGameMenu;
     public GameObject pauseMenu;
     public RectTransform integrityContainer;
@@ -64,14 +63,14 @@ public class IntegrityManager : MonoBehaviour
 
     public enum GameState
     {
-        Intro,
+        Idle,
         Playing,
         End,
         EnteringHighScore,
         Paused
     }
 
-    public GameState gameState = GameState.Intro;
+    public GameState gameState = GameState.Idle;
 
     private void Awake()
     {
@@ -117,22 +116,10 @@ public class IntegrityManager : MonoBehaviour
     {
         switch (gameState)
         {
-            case GameState.Intro:
-
-                if (player.GetButtonUp("Start Game"))
-                {
-                    StartGame();
-                }
-                else if (player.GetButtonUp("Quit"))
-                {
-                    Application.Quit();
-                }
-                break;
             case GameState.Playing:
 
                 currentTime += Time.deltaTime;
 
-                /*
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     currentTime += 60f;
@@ -145,7 +132,6 @@ public class IntegrityManager : MonoBehaviour
                 {
                     currentIntegrity = 0;
                 }
-                */
 
                 UpdateUI();
                 UpdateSpawners();
@@ -184,6 +170,11 @@ public class IntegrityManager : MonoBehaviour
         }
     }
 
+    private void ResetToMainMenu()
+    {
+        
+    }
+
     private void PauseGame()
     {
         gameState = GameState.Paused;
@@ -196,19 +187,10 @@ public class IntegrityManager : MonoBehaviour
         pauseMenu.SetActive(false);
     }
 
-    private void ResetToMainMenu()
-    {
-        gameState = GameState.Intro;
-        mainMenu.SetActive(true);
-        endGameMenu.SetActive(false);
-        integrityBar.SetActive(false);
-    }
-
     private void StartGame()
     {
         gameState = GameState.Playing;
         timer.gameObject.SetActive(true);
-        mainMenu.SetActive(false);
         spawnerLeft.SetActive(true);
         spawnerRight.SetActive(true);
         integrityBar.SetActive(true);
@@ -307,5 +289,10 @@ public class IntegrityManager : MonoBehaviour
                 currentIntegrity += goodRecordIntegrity;
                 break;
         }
+    }
+
+    public void StartIntegrityManager()
+    {
+        StartGame();
     }
 }
