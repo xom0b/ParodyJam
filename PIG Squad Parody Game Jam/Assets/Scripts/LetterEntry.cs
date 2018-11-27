@@ -74,7 +74,6 @@ public class LetterEntry : MonoBehaviour
     {
         if (isActive)
         {
-            Debug.Log(positiveScrollState.ToString());
             LetterInputManager letterInputManager;
             if (LetterInputManager.TryGetInstance(out letterInputManager))
             {

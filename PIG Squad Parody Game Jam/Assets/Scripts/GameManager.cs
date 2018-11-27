@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Animator buttonPromptAB;
     public Animator buttonPromptABXY;
     public Animator buttonPromptB;
+    public Animator buttonPromptA;
     public Animator credits;
     public GameObject tutorialUI;
 
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
     private Vector3 cameraVelocity;
     private float quitTimerDelta;
     private bool waitingForTransition;
+    private bool hasEnteredHighScore;
 
     private void Awake()
     {
@@ -111,10 +113,7 @@ public class GameManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (menuState != MenuState.Game)
-        {
-            cameraTransform.position = currentCameraPosition;
-        }
+        cameraTransform.position = currentCameraPosition;
     }
 
     private void TitleHandler()
@@ -146,6 +145,7 @@ public class GameManager : MonoBehaviour
 
     private void TransitionToMainMenu()
     {
+        tutorialUI.SetActive(true);
         waitingForTransition = false;
         buttonPromptABXY.gameObject.SetActive(true);
         SetMenuState(MenuState.MainMenu);
@@ -244,6 +244,31 @@ public class GameManager : MonoBehaviour
             Application.Quit();
 #endif
         }
+    }
+
+    public void OnEnterScore()
+    {
+        Invoke("TriggerButtonAPrompt", transitionToLeaderboardWaitTime);
+        playerController.SetPlayerActive(false);
+        targetCameraPosition = leaderboardCameraPosition;
+        hasEnteredHighScore = false;
+    }
+
+    private void TriggerButtonAPrompt()
+    {
+        buttonPromptA.gameObject.SetActive(true);
+        IntegrityManager integrityManager;
+        if (IntegrityManager.TryGetInstance(out integrityManager))
+        {
+            integrityManager.TurnOffTimerGameObjects();
+        }
+    }
+
+    public void OnFinishedEnteringHighScore()
+    {
+        Invoke("TransitionToLeaderboard", transitionToLeaderboardWaitTime);
+        buttonPromptA.SetTrigger("outTrigger");
+        hasEnteredHighScore = true;
     }
 
     public void SetMenuState(MenuState nextState)

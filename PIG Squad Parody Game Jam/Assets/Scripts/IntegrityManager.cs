@@ -34,6 +34,7 @@ public class IntegrityManager : MonoBehaviour
     public float minOffset;
     public float maxOffset;
     public float integritySmooth;
+    public float endGamePause;
 
     [Header("Game References")]
     public GameObject spawnerRight;
@@ -56,6 +57,8 @@ public class IntegrityManager : MonoBehaviour
     private float startingMinRecordSpawnSpeed;
     private float startingMaxRecordSpawnSpeed;
     private float startingRecordSpawnRatio;
+
+    private bool waitingForInvoke = false;
 
     private RecordSpawner[] recordSpawners;
 
@@ -114,59 +117,65 @@ public class IntegrityManager : MonoBehaviour
 
     private void Update()
     {
-        switch (gameState)
+        if (!waitingForInvoke)
         {
-            case GameState.Playing:
+            switch (gameState)
+            {
+                case GameState.Playing:
 
-                currentTime += Time.deltaTime;
+                    currentTime += Time.deltaTime;
 
-                if (Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    currentTime += 60f;
-                }
-                else if (Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    currentTime -= 30f;
-                }
-                else if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    currentIntegrity = 0;
-                }
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
+                    {
+                        currentTime += 60f;
+                    }
+                    else if (Input.GetKeyDown(KeyCode.DownArrow))
+                    {
+                        currentTime -= 30f;
+                    }
+                    else if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        currentIntegrity = 0;
+                    }
 
-                UpdateUI();
-                UpdateSpawners();
+                    UpdateUI();
+                    UpdateSpawners();
 
-                if (player.GetButtonUp("Pause"))
-                {
-                    PauseGame();
-                }
+                    if (player.GetButtonUp("Pause"))
+                    {
+                        PauseGame();
+                    }
 
-                if (currentIntegrity <= 0 || Input.GetKeyDown(KeyCode.Space))
-                {
-                    EnterScore();
-                }
+                    if (currentIntegrity <= 0)
+                    {
+                        waitingForInvoke = true;
+                        endGameMenu.SetActive(true);
+                        // TODO: some kind of end game indication?
+                        Invoke("EnterScore", endGamePause);
+                    }
 
-                break;
-            case GameState.End:
+                    break;
+                case GameState.End:
 
-                if (player.GetButtonUp("Start Game"))
-                {
-                    ResetToMainMenu();
-                }
+                    if (player.GetButtonUp("Start Game"))
+                    {
+                        ResetToMainMenu();
+                    }
 
-                break;
-            case GameState.Paused:
-                if (player.GetButtonUp("Resume"))
-                {
-                    UnpauseGame();
-                }
-                else if (player.GetButtonUp("Restart"))
-                {
-                    pauseMenu.SetActive(false);
-                    EndGame(false);
-                    ResetToMainMenu();
-                }
-                break;
+                    break;
+                case GameState.Paused:
+                    if (player.GetButtonUp("Resume"))
+                    {
+                        UnpauseGame();
+                    }
+                    else if (player.GetButtonUp("Restart"))
+                    {
+                        pauseMenu.SetActive(false);
+                        EndGame(false);
+                        ResetToMainMenu();
+                    }
+                    break;
+            }
         }
     }
 
@@ -222,11 +231,19 @@ public class IntegrityManager : MonoBehaviour
 
     private void EnterScore()
     {
+        endGameMenu.SetActive(false);
+        waitingForInvoke = false;
         LetterInputManager letterInputManager;
         if (LetterInputManager.TryGetInstance(out letterInputManager))
         {
             letterInputManager.gameObject.SetActive(true);
             letterInputManager.ShowLetterInput(currentTime);
+        }
+
+        GameManager gameManager;
+        if (GameManager.TryGetInstance(out gameManager))
+        {
+            gameManager.OnEnterScore();
         }
 
         timer.gameObject.SetActive(false);
@@ -241,11 +258,6 @@ public class IntegrityManager : MonoBehaviour
 
     public void EndGame(bool setEndMenuActive = true)
     {
-        if (setEndMenuActive)
-        {
-            endGameMenu.SetActive(true);
-        }
-
         timer.gameObject.SetActive(false);
         spawnerLeft.SetActive(false);
         spawnerRight.SetActive(false);
@@ -289,6 +301,12 @@ public class IntegrityManager : MonoBehaviour
                 currentIntegrity += goodRecordIntegrity;
                 break;
         }
+    }
+
+    public void TurnOffTimerGameObjects()
+    {
+        integrityBar.SetActive(false);
+        timer.gameObject.SetActive(false);
     }
 
     public void StartIntegrityManager()

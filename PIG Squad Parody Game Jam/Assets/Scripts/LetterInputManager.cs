@@ -74,6 +74,11 @@ public class LetterInputManager : MonoBehaviour
                     secondLetter.gameObject.SetActive(false);
                     thirdLetter.gameObject.SetActive(false);
                     integrityManager.EndGame();
+                    GameManager gameManager;
+                    if (GameManager.TryGetInstance(out gameManager))
+                    {
+                        gameManager.OnFinishedEnteringHighScore();
+                    }
                     gameObject.SetActive(false);
                 }
             }
