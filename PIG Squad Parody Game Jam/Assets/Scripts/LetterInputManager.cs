@@ -58,7 +58,7 @@ public class LetterInputManager : MonoBehaviour
     private void Update()
     {
         if (player.GetButtonDown("DPadRight") || (player.GetAxis("Left Leg Horizontal") > kMenuDeadZone && player.GetAxisPrev("Left Leg Horizontal") <= kMenuDeadZone))
-        { 
+        {
             MoveLetterInput(1);
         }
         else if (player.GetButtonDown("DPadLeft") || (player.GetAxis("Left Leg Horizontal") < -kMenuDeadZone && player.GetAxisPrev("Left Leg Horizontal") >= -kMenuDeadZone))
@@ -69,6 +69,18 @@ public class LetterInputManager : MonoBehaviour
         {
             if (currentInputState == InputState.fourthLetter)
             {
+                LeaderboardDataManager leaderboardDataManager;
+                if (LeaderboardDataManager.TryGetInstance(out leaderboardDataManager))
+                {
+                    string condensedString = firstLetter.character.text + secondLetter.character.text + thirdLetter.character.text + fourthLetter.character.text;
+                    string scoreString = scoreText.text;
+                    for (int i = 0; i < 4 - (scoreText.text.Length - 1); i++)
+                    {
+                        scoreString += "0";
+                    }
+                    leaderboardDataManager.AddHighScore(condensedString, scoreString);
+                }
+
                 IntegrityManager integrityManager;
                 if (IntegrityManager.TryGetInstance(out integrityManager))
                 {
