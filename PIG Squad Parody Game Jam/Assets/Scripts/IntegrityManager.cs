@@ -25,10 +25,10 @@ public class IntegrityManager : MonoBehaviour
     public float maxRecordSpawnRatio;
 
     [Header("UI")]
+    public Animator pauseMenuButtonPromptAB;
     public Text timer;
     public GameObject integrityBar;
     public Animator allThatIsGoodIsNasty;
-    public GameObject pauseMenu;
     public RectTransform integrityContainer;
     public Transform integrityIndicator;
     public float minOffset;
@@ -40,7 +40,7 @@ public class IntegrityManager : MonoBehaviour
     [Header("Game References")]
     public GameObject spawnerRight;
     public GameObject spawnerLeft;
-    
+
 
     [HideInInspector]
     public int currentIntegrity;
@@ -164,14 +164,21 @@ public class IntegrityManager : MonoBehaviour
                 case GameState.End:
                     break;
                 case GameState.Paused:
-                    if (player.GetButtonUp("Resume"))
+                    if (player.GetButtonUp("Restart"))
                     {
                         UnpauseGame();
                     }
-                    else if (player.GetButtonUp("Restart"))
+                    else if (player.GetButtonUp("Resume"))
                     {
-                        pauseMenu.SetActive(false);
-                        EndGame(false);
+                        GameManager gameManager;
+                        if (GameManager.TryGetInstance(out gameManager))
+                        {
+                            gameManager.TransitionFromPause();
+                        }
+
+                        pauseMenuButtonPromptAB.SetTrigger("outTrigger");
+                        TurnOffTimerGameObjects();
+                        EndGame();
                     }
                     break;
             }
@@ -186,13 +193,13 @@ public class IntegrityManager : MonoBehaviour
     private void PauseGame()
     {
         gameState = GameState.Paused;
-        pauseMenu.SetActive(true);
+        pauseMenuButtonPromptAB.gameObject.SetActive(true);
     }
 
     private void UnpauseGame()
     {
+        pauseMenuButtonPromptAB.SetTrigger("outTrigger");
         gameState = GameState.Playing;
-        pauseMenu.SetActive(false);
     }
 
     private void StartGame()
@@ -206,7 +213,7 @@ public class IntegrityManager : MonoBehaviour
 
     private void UpdateSpawners()
     {
-        foreach(RecordSpawner recordSpawner in recordSpawners)
+        foreach (RecordSpawner recordSpawner in recordSpawners)
         {
             recordSpawner.minTimeBetweenRecordsSeconds = Mathf.Lerp(startingMinTimeBetweenRecords, maxMinTimeBetweenRecords, currentTime / maxTimeSeconds);
             recordSpawner.maxTimeBetweenRecordsSeconds = Mathf.Lerp(startingMaxTimeBetweenRecords, maxMaxTimeBetweenRecords, currentTime / maxTimeSeconds);
@@ -270,7 +277,7 @@ public class IntegrityManager : MonoBehaviour
     {
         RecordController[] records = FindObjectsOfType<RecordController>();
 
-        for(int i = 0; i < records.Length; i++)
+        for (int i = 0; i < records.Length; i++)
         {
             Destroy(records[i].gameObject);
         }
@@ -290,7 +297,7 @@ public class IntegrityManager : MonoBehaviour
 
     public void KilledRecord(RecordSpawner.RecordType recordType)
     {
-        switch(recordType)
+        switch (recordType)
         {
             case RecordSpawner.RecordType.Bad:
                 currentIntegrity += badRecordIntegrity;

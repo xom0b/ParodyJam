@@ -246,6 +246,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void TransitionFromPause()
+    {
+        Invoke("TempTransitionFromPause", 0.5f);
+    }
+
+    private void TempTransitionFromPause()
+    {
+        SetMenuState(MenuState.MainMenu);
+        buttonPromptABXY.gameObject.SetActive(true);
+    }
+
     public void OnEnterScore()
     {
         Invoke("TriggerButtonAPrompt", transitionToLeaderboardWaitTime);

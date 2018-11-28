@@ -29,7 +29,6 @@ public class CameraShake : MonoBehaviour
         if (shakeDuration > 0)
         {
             Vector2 shakeMovement = Random.insideUnitCircle * shakeAmount;
-            Debug.Log("Shaking camera: " + shakeMovement.ToString("F8"));
             transform.position = originalPos + new Vector3(shakeMovement.x, shakeMovement.y, 0f);
             shakeDuration -= Time.deltaTime * decreaseFactor;
             shakeAmount =  Mathf.Clamp(shakeAmount - Time.deltaTime * decreaseFactor, 0f, 1f);
