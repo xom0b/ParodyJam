@@ -1513,6 +1513,7 @@ GameObject:
   - component: {fileID: 329205519}
   - component: {fileID: 329205518}
   - component: {fileID: 329205517}
+  - component: {fileID: 329205520}
   m_Layer: 0
   m_Name: saying_allNasty
   m_TagString: Untagged
@@ -1597,6 +1598,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &329205520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 329205516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b100f3a41a65d04f80d5fafcb4ea009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  methodToCall:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 816683022}
+        m_MethodName: TurnOffGameObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 329205516}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  methodToCallTwo:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &348154149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,14 +2365,15 @@ MonoBehaviour:
   maxRecordSpawnRatio: 0.6
   timer: {fileID: 687976882}
   integrityBar: {fileID: 1026762559}
-  endGameMenu: {fileID: 1543387750}
+  allThatIsGoodIsNasty: {fileID: 329205517}
   pauseMenu: {fileID: 414186664}
   integrityContainer: {fileID: 1702029715}
   integrityIndicator: {fileID: 1293978696}
   minOffset: -9.220092
   maxOffset: 0
   integritySmooth: 0.1
-  endGamePause: 1
+  endGamePause: 3
+  allThatIsGoodIsNastyLoopTime: 2
   spawnerRight: {fileID: 1190186499}
   spawnerLeft: {fileID: 416071784}
   currentIntegrity: 0
@@ -6427,7 +6461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1148249854
 SpriteRenderer:
   m_ObjectHideFlags: 0

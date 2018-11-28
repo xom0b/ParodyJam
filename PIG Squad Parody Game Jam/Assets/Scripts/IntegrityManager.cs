@@ -27,7 +27,7 @@ public class IntegrityManager : MonoBehaviour
     [Header("UI")]
     public Text timer;
     public GameObject integrityBar;
-    public GameObject endGameMenu;
+    public Animator allThatIsGoodIsNasty;
     public GameObject pauseMenu;
     public RectTransform integrityContainer;
     public Transform integrityIndicator;
@@ -35,6 +35,7 @@ public class IntegrityManager : MonoBehaviour
     public float maxOffset;
     public float integritySmooth;
     public float endGamePause;
+    public float allThatIsGoodIsNastyLoopTime;
 
     [Header("Game References")]
     public GameObject spawnerRight;
@@ -149,19 +150,13 @@ public class IntegrityManager : MonoBehaviour
                     if (currentIntegrity <= 0)
                     {
                         waitingForInvoke = true;
-                        endGameMenu.SetActive(true);
-                        // TODO: some kind of end game indication?
+                        allThatIsGoodIsNasty.gameObject.SetActive(true);
+                        Invoke("SendAllThatIsGoodIsNasty", allThatIsGoodIsNastyLoopTime);
                         Invoke("EnterScore", endGamePause);
                     }
 
                     break;
                 case GameState.End:
-
-                    if (player.GetButtonUp("Start Game"))
-                    {
-                        ResetToMainMenu();
-                    }
-
                     break;
                 case GameState.Paused:
                     if (player.GetButtonUp("Resume"))
@@ -172,16 +167,15 @@ public class IntegrityManager : MonoBehaviour
                     {
                         pauseMenu.SetActive(false);
                         EndGame(false);
-                        ResetToMainMenu();
                     }
                     break;
             }
         }
     }
 
-    private void ResetToMainMenu()
+    private void SendAllThatIsGoodIsNasty()
     {
-        
+        allThatIsGoodIsNasty.SetTrigger("outTrigger");
     }
 
     private void PauseGame()
@@ -231,7 +225,6 @@ public class IntegrityManager : MonoBehaviour
 
     private void EnterScore()
     {
-        endGameMenu.SetActive(false);
         waitingForInvoke = false;
         LetterInputManager letterInputManager;
         if (LetterInputManager.TryGetInstance(out letterInputManager))
