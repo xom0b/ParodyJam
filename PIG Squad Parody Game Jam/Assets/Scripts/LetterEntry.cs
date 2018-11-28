@@ -9,8 +9,7 @@ public class LetterEntry : MonoBehaviour
 {
     public int playerId;
     public Text character;
-    public GameObject arrowTop;
-    public GameObject arrowBot;
+    public GameObject arrows;
 
     [HideInInspector]
     private AlphabetCharacter currentLetter = AlphabetCharacter.a;
@@ -61,10 +60,6 @@ public class LetterEntry : MonoBehaviour
 
     private void Start()
     {
-        if (character == null)
-        {
-            Debug.Log("NULL: ", gameObject);
-        }
         character.text = currentLetter.ToString();
         player = ReInput.players.GetPlayer(playerId);
     }
@@ -109,8 +104,8 @@ public class LetterEntry : MonoBehaviour
     public void SetArrowsActive(bool active)
     {
         isActive = active;
-        arrowBot.SetActive(active);
-        arrowTop.SetActive(active);
+        arrows.SetActive(active);
+        arrows.SetActive(active);
     }
 
     private bool LessThan(float lhs, float rhs)
@@ -129,11 +124,6 @@ public class LetterEntry : MonoBehaviour
         LetterInputManager letterInputManager;
         if (LetterInputManager.TryGetInstance(out letterInputManager))
         {
-            if (scrollState == positiveScrollState && scrollFunc(axisValue, threshold))
-            {
-                Debug.Log("test");
-            }
-
             switch (scrollState)
             {
                 case AxisScrollState.Idle:

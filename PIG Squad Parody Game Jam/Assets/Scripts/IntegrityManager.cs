@@ -151,6 +151,11 @@ public class IntegrityManager : MonoBehaviour
                     {
                         waitingForInvoke = true;
                         allThatIsGoodIsNasty.gameObject.SetActive(true);
+                        LeaderboardPositionManager leaderboardPositionManager;
+                        if (LeaderboardPositionManager.TryGetInstance(out leaderboardPositionManager))
+                        {
+                            leaderboardPositionManager.SetLeaderboardPosition(leaderboardPositionManager.showInputPosition);
+                        }
                         Invoke("SendAllThatIsGoodIsNasty", allThatIsGoodIsNastyLoopTime);
                         Invoke("EnterScore", endGamePause);
                     }

@@ -11,6 +11,7 @@ public class LetterInputManager : MonoBehaviour
     public LetterEntry firstLetter;
     public LetterEntry secondLetter;
     public LetterEntry thirdLetter;
+    public LetterEntry fourthLetter;
     public Text scoreText;
 
     public float timeToScroll;
@@ -28,7 +29,8 @@ public class LetterInputManager : MonoBehaviour
     {
         firstLetter = 0,
         secondLetter = 1,
-        thirdLetter = 2
+        thirdLetter = 2,
+        fourthLetter = 3
     }
 
     public static bool TryGetInstance(out LetterInputManager manager)
@@ -49,6 +51,7 @@ public class LetterInputManager : MonoBehaviour
         firstLetter.gameObject.SetActive(false);
         secondLetter.gameObject.SetActive(false);
         thirdLetter.gameObject.SetActive(false);
+        fourthLetter.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -64,15 +67,17 @@ public class LetterInputManager : MonoBehaviour
         }
         else if (player.GetButtonDown("Start Game"))
         {
-            if (currentInputState == InputState.thirdLetter)
+            if (currentInputState == InputState.fourthLetter)
             {
                 IntegrityManager integrityManager;
                 if (IntegrityManager.TryGetInstance(out integrityManager))
                 {
-                    scoreText.gameObject.SetActive(false);
-                    firstLetter.gameObject.SetActive(false);
-                    secondLetter.gameObject.SetActive(false);
-                    thirdLetter.gameObject.SetActive(false);
+                    LeaderboardPositionManager leaderboardPositionManager;
+                    if (LeaderboardPositionManager.TryGetInstance(out leaderboardPositionManager))
+                    {
+                        leaderboardPositionManager.SetTargetLeaderboardPosition(leaderboardPositionManager.showAllPosition);
+                    }
+
                     integrityManager.EndGame();
                     GameManager gameManager;
                     if (GameManager.TryGetInstance(out gameManager))
@@ -97,10 +102,11 @@ public class LetterInputManager : MonoBehaviour
     public void ShowLetterInput(float score)
     {
         scoreText.gameObject.SetActive(true);
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString("F1");
         firstLetter.gameObject.SetActive(true);
         secondLetter.gameObject.SetActive(true);
         thirdLetter.gameObject.SetActive(true);
+        fourthLetter.gameObject.SetActive(true);
         currentInputState = InputState.firstLetter;
         MoveLetterInput(0);
     }
@@ -111,13 +117,13 @@ public class LetterInputManager : MonoBehaviour
     {
         int newInputState = (int)currentInputState + change;
 
-        if (newInputState > 2)
+        if (newInputState > 3)
         {
             newInputState = 0;
         }
         else if (newInputState < 0)
         {
-            newInputState = 2;
+            newInputState = 3;
         }
 
         currentInputState = (InputState)newInputState;
@@ -128,16 +134,25 @@ public class LetterInputManager : MonoBehaviour
                 firstLetter.SetArrowsActive(true);
                 secondLetter.SetArrowsActive(false);
                 thirdLetter.SetArrowsActive(false);
+                fourthLetter.SetArrowsActive(false);
                 break;
             case InputState.secondLetter:
                 secondLetter.SetArrowsActive(true);
                 firstLetter.SetArrowsActive(false);
                 thirdLetter.SetArrowsActive(false);
+                fourthLetter.SetArrowsActive(false);
                 break;
             case InputState.thirdLetter:
                 thirdLetter.SetArrowsActive(true);
                 firstLetter.SetArrowsActive(false);
                 secondLetter.SetArrowsActive(false);
+                fourthLetter.SetArrowsActive(false);
+                break;
+            case InputState.fourthLetter:
+                fourthLetter.SetArrowsActive(true);
+                firstLetter.SetArrowsActive(false);
+                secondLetter.SetArrowsActive(false);
+                thirdLetter.SetArrowsActive(false);
                 break;
         }
     }

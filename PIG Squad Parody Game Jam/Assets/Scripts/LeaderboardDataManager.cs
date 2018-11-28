@@ -45,7 +45,6 @@ public class LeaderboardDataManager : MonoBehaviour
 
     private void Load()
     {
-        Debug.Log(Application.persistentDataPath + "/highScores.dat");
         if (File.Exists(Application.persistentDataPath + "/highScores.dat"))
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
