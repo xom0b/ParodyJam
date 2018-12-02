@@ -7,6 +7,7 @@ using Rewired;
 public class GameManager : MonoBehaviour
 {
     [Header("Reference Components")]
+    public CameraShake cameraShake;
     public PlayerController playerController;
     public Transform cameraTransform;
     public Animator titleAnimator;
@@ -113,7 +114,10 @@ public class GameManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        cameraTransform.position = currentCameraPosition;
+        if (cameraShake.shakeDuration == 0)
+        {
+            cameraTransform.position = currentCameraPosition;
+        }
     }
 
     private void TitleHandler()
@@ -253,6 +257,7 @@ public class GameManager : MonoBehaviour
 
     private void TempTransitionFromPause()
     {
+        tutorialUI.gameObject.SetActive(true);
         SetMenuState(MenuState.MainMenu);
         buttonPromptABXY.gameObject.SetActive(true);
     }

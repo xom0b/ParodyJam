@@ -126,6 +126,7 @@ public class IntegrityManager : MonoBehaviour
 
                     currentTime += Time.deltaTime;
 
+                    
                     if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
                         currentTime += 60f;
@@ -138,6 +139,7 @@ public class IntegrityManager : MonoBehaviour
                     {
                         currentIntegrity = 0;
                     }
+                    
 
                     UpdateUI();
                     UpdateSpawners();
@@ -149,8 +151,12 @@ public class IntegrityManager : MonoBehaviour
 
                     if (currentIntegrity <= 0)
                     {
+                        DestroyAllRecords();
                         waitingForInvoke = true;
                         allThatIsGoodIsNasty.gameObject.SetActive(true);
+                        timer.gameObject.SetActive(false);
+                        spawnerLeft.SetActive(false);
+                        spawnerRight.SetActive(false);
                         LeaderboardPositionManager leaderboardPositionManager;
                         if (LeaderboardPositionManager.TryGetInstance(out leaderboardPositionManager))
                         {
@@ -251,10 +257,6 @@ public class IntegrityManager : MonoBehaviour
             gameManager.OnEnterScore();
         }
 
-        timer.gameObject.SetActive(false);
-        spawnerLeft.SetActive(false);
-        spawnerRight.SetActive(false);
-        DestroyAllRecords();
         gameState = GameState.EnteringHighScore;
         ResetGame();
         currentTime = 0f;
