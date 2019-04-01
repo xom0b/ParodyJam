@@ -98,7 +98,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnFootStompEnd(Foot leg)
     {
-        Debug.Log("on foot stomp end: " + leg.ToString());
         GameObject splat = Instantiate(mudSplat);
         float splatX;
         if (leg == Foot.Left)
