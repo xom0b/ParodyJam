@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class CurvedLineRenderer : MonoBehaviour 
 {
     public List<CurvedLinePoint> curvedLinePoints = new List<CurvedLinePoint>();
+    public bool reverseSegments = false;
 	//PUBLIC
 	public float lineSegmentSize = 0.15f;
 	public float lineWidth = 0.1f;
@@ -64,8 +65,11 @@ public class CurvedLineRenderer : MonoBehaviour
 
 			//get smoothed values
 			Vector3[] smoothedPoints = LineSmoother.SmoothLine( linePositions, lineSegmentSize , line.sharedMaterial);
-
 			//set line settings
+            if (reverseSegments)
+            {
+                System.Array.Reverse(smoothedPoints);
+            }
 			line.SetVertexCount( smoothedPoints.Length );
 			line.SetPositions( smoothedPoints );
             //line.widthCurve()
