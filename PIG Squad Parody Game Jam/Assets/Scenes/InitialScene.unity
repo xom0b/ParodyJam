@@ -7679,12 +7679,12 @@ HingeJoint2D:
   m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 2007940079}
+  m_ConnectedRigidBody: {fileID: 831133236}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.04000008, y: 0.477}
+  m_ConnectedAnchor: {x: 0.36899996, y: 1.0540003}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -8832,12 +8832,12 @@ HingeJoint2D:
   m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 1551938340}
+  m_ConnectedRigidBody: {fileID: 1265832811}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 0
+  m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -3.3325002, y: 8.9325}
+  m_ConnectedAnchor: {x: 4.18, y: 8.655}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -8856,7 +8856,7 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
+  m_UseAutoMass: 1
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
@@ -8875,12 +8875,12 @@ HingeJoint2D:
   m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 1265832811}
+  m_ConnectedRigidBody: {fileID: 1551938340}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 0
+  m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 4.1674995, y: 8.9325}
+  m_ConnectedAnchor: {x: -3.4799998, y: 8.8225}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
