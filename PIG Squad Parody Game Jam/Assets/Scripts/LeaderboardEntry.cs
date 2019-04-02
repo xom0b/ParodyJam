@@ -17,4 +17,34 @@ public class LeaderboardEntry : MonoBehaviour
         this.nameText.text = nameText;
         this.scoreText.text = scoreText;
     }
+
+    public void InitializeHueAnimator(float S, float V, float speed)
+    {
+        AnimateHue nameAnimator = nameText.GetComponent<AnimateHue>();
+        if (nameAnimator != null)
+        {
+            nameAnimator.saturation = S;
+            nameAnimator.value = V;
+            nameAnimator.hueSpeed = speed;
+            nameAnimator.StartHueAnimation();
+        }
+
+        AnimateHue scoreAnimator = scoreText.GetComponent<AnimateHue>();
+        if (scoreAnimator != null)
+        {
+            scoreAnimator.saturation = S;
+            scoreAnimator.value = V;
+            scoreAnimator.hueSpeed = speed;
+            scoreAnimator.StartHueAnimation();
+        }
+    }
+
+    public void RemoveHueAnimator()
+    {
+        AnimateHue nameHueAnimator = nameText.gameObject.GetComponent<AnimateHue>();
+        AnimateHue scoreHueAnimator = scoreText.gameObject.GetComponent<AnimateHue>();
+
+        nameHueAnimator.ResetColor();
+        scoreHueAnimator.ResetColor();
+    }
 }

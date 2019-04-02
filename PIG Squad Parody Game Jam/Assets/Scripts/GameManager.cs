@@ -153,6 +153,12 @@ public class GameManager : MonoBehaviour
         waitingForTransition = false;
         buttonPromptABXY.gameObject.SetActive(true);
         SetMenuState(MenuState.MainMenu);
+
+        LeaderboardDataManager leaderboardDataManager;
+        if (LeaderboardDataManager.TryGetInstance(out leaderboardDataManager))
+        {
+            leaderboardDataManager.StopLastAddedAnimation();
+        }
     }
 
     private void MainMenuHandler()

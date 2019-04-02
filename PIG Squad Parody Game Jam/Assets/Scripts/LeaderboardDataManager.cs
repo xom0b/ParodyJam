@@ -3,11 +3,18 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-
+using System;
 
 public class LeaderboardDataManager : MonoBehaviour
 {
     public List<LeaderboardEntry> leaderboardEntries;
+    public bool clearDataOnLoad;
+
+    [Header("Hue Animation Settings")]
+    public bool animateEntryColor;
+    public float saturation;
+    public float value;
+    public float hueSpeed;
 
     [System.Serializable]
     public class LeaderboardData
@@ -28,7 +35,9 @@ public class LeaderboardDataManager : MonoBehaviour
         }
     }
 
-    LinkedList<LeaderboardData> top30Scores = new LinkedList<LeaderboardData>();
+    private LinkedList<LeaderboardData> top30Scores = new LinkedList<LeaderboardData>();
+    private LeaderboardData lastAddedData = null;
+    private LeaderboardEntry lastAddedEntry = null;
 
     private static LeaderboardDataManager instance;
 
@@ -46,6 +55,11 @@ public class LeaderboardDataManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (clearDataOnLoad)
+        {
+            ClearData();
+        }
+
         Load();
         PopulateUI();
     }
@@ -57,8 +71,24 @@ public class LeaderboardDataManager : MonoBehaviour
         {
             if (i < leaderboardEntries.Count)
             {
+                if (top30ScoresArr[i] == lastAddedData && animateEntryColor)
+                {
+                    lastAddedEntry = leaderboardEntries[i];
+                    lastAddedEntry.InitializeHueAnimator(saturation, value, hueSpeed);
+                }
+
                 leaderboardEntries[i].SetLeaderboardEntry(top30ScoresArr[i].playerName, top30ScoresArr[i].playerScore);
             }
+        }
+    }
+
+    public void StopLastAddedAnimation()
+    {
+        if (lastAddedData != null && lastAddedEntry != null && animateEntryColor)
+        {
+            lastAddedEntry.RemoveHueAnimator();
+            lastAddedData = null;
+            lastAddedEntry = null;
         }
     }
 
@@ -83,7 +113,9 @@ public class LeaderboardDataManager : MonoBehaviour
             LinkedListNode<LeaderboardData> leaderboardNode = top30Scores.Find(leaderboardDataToFind);
             if (leaderboardNode != null)
             {
-                top30Scores.AddBefore(leaderboardNode, new LeaderboardData(playerName, playerScore));
+                LeaderboardData newLeaderBoardData = new LeaderboardData(playerName, playerScore);
+                lastAddedData = newLeaderBoardData;
+                top30Scores.AddBefore(leaderboardNode, newLeaderBoardData);
             }
         }
 
@@ -97,6 +129,14 @@ public class LeaderboardDataManager : MonoBehaviour
         FileStream file = File.Open(Application.persistentDataPath + "/highScores.dat", FileMode.OpenOrCreate);
         binaryFormatter.Serialize(file, top30Scores);
         file.Close();
+    }
+
+    private void ClearData()
+    {
+        if (File.Exists(Application.persistentDataPath + "/highScores.dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/highScores.dat");
+        }
     }
 
     private void Load()

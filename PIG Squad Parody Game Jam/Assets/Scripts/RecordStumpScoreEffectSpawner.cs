@@ -40,7 +40,6 @@ public class RecordStumpScoreEffectSpawner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collided: " + collision.gameObject);
         RecordController collidedController = collision.gameObject.GetComponent<RecordController>();
         if (collidedController != null)
         {
