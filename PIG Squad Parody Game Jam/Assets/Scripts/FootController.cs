@@ -8,6 +8,9 @@ public class FootController : MonoBehaviour
     public CharacterController2D characterController;
     public event Action<RaycastHit2D> onCollisionEvent;
     public event Action<PlayerController.Foot> onFootStompEnd;
+    public SpriteRenderer footSprite;
+    public LineRenderer legRenderer;
+    public LineRenderer legBackgroundRenderer;
 
     [HideInInspector]
     public FootMovementState footMovementState = FootMovementState.Idle;
@@ -69,6 +72,13 @@ public class FootController : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public void SetFootAndLegOrder(int footOrder, int legOrder, int legBackgroundOrder)
+    {
+        footSprite.sortingOrder = footOrder;
+        legRenderer.sortingOrder = legOrder;
+        legBackgroundRenderer.sortingOrder = legBackgroundOrder;
+    }
+
     public void TriggerStomp(float stompSpeed)
     {
         if (footMovementState == FootMovementState.Moving)
