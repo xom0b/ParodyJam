@@ -5306,6 +5306,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foot: 1
   characterController: {fileID: 831133235}
+  footSprite: {fileID: 1563579835}
+  legRenderer: {fileID: 1695123618}
+  legBackgroundRenderer: {fileID: 1561889455}
   footMovementState: 0
 --- !u!1 &832441302
 GameObject:
@@ -7357,6 +7360,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foot: 2
   characterController: {fileID: 1169875763}
+  footSprite: {fileID: 596307487}
+  legRenderer: {fileID: 1958681146}
+  legBackgroundRenderer: {fileID: 1484470807}
   footMovementState: 0
 --- !u!1 &1173729712
 GameObject:
@@ -8087,7 +8093,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1300784453
   m_SortingLayer: -1
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e39214598689ce24f82101ac1651eda9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -11972,6 +11978,13 @@ MonoBehaviour:
   stompSpeed: 1
   maxFootDistance: 16
   minFootDistance: 15
+  spriteLayerData:
+    movingFootOrderInLayer: 5
+    movingLegOrderInLayer: 7
+    movingLegBackgroundOrderInLayer: 6
+    idleFootOrderInLayer: 2
+    idleLegOrderInLayer: 4
+    idleLegBackgroundOrderInLayer: 3
   showDebugDistanceCircles: 0
 --- !u!1 &1780220529
 GameObject:
@@ -13485,7 +13498,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1300784453
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Positions:
   - {x: -0.7319999, y: -0.63399994, z: 0}
   - {x: -0.73503816, y: -0.58217424, z: 0}

@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     public float maxFootDistance;
     public float minFootDistance;
 
+    [Header("Sprite Ordering")]
+    public SpriteLayerData spriteLayerData;
+
     [Header("Debug")]
     public bool showDebugDistanceCircles;
 
@@ -46,6 +49,17 @@ public class PlayerController : MonoBehaviour
         None,
         Left,
         Right
+    }
+
+    [System.Serializable]
+    public struct SpriteLayerData
+    {
+        public int movingFootOrderInLayer;
+        public int movingLegOrderInLayer;
+        public int movingLegBackgroundOrderInLayer;
+        public int idleFootOrderInLayer;
+        public int idleLegOrderInLayer;
+        public int idleLegBackgroundOrderInLayer;
     }
 
     private struct InputState
@@ -72,6 +86,8 @@ public class PlayerController : MonoBehaviour
         rightFootController.onCollisionEvent += OnFootCollision;
         leftFootController.onFootStompEnd += OnFootStompEnd;
         rightFootController.onFootStompEnd += OnFootStompEnd;
+        leftFootController.SetFootAndLegOrder(spriteLayerData.movingFootOrderInLayer, spriteLayerData.movingLegOrderInLayer, spriteLayerData.movingLegBackgroundOrderInLayer);
+        rightFootController.SetFootAndLegOrder(spriteLayerData.idleFootOrderInLayer, spriteLayerData.idleLegOrderInLayer, spriteLayerData.idleLegBackgroundOrderInLayer);
         movingTowards = transform.position;
     }
     
@@ -179,11 +195,15 @@ public class PlayerController : MonoBehaviour
             {
                 currentFoot = Foot.Left;
                 movingTowards = inputThisFrame.leftStickVector;
+                leftFootController.SetFootAndLegOrder(spriteLayerData.movingFootOrderInLayer, spriteLayerData.movingLegOrderInLayer, spriteLayerData.movingLegBackgroundOrderInLayer);
+                rightFootController.SetFootAndLegOrder(spriteLayerData.idleFootOrderInLayer, spriteLayerData.idleLegOrderInLayer, spriteLayerData.idleLegBackgroundOrderInLayer);
             }
             else if (inputThisFrame.rightStickVector.magnitude > inputThisFrame.leftStickVector.magnitude && inputThisFrame.rightStickVector.magnitude > 0f && !inputThisFrame.stomp)
             {
                 currentFoot = Foot.Right;
                 movingTowards = inputThisFrame.rightStickVector;
+                rightFootController.SetFootAndLegOrder(spriteLayerData.movingFootOrderInLayer, spriteLayerData.movingLegOrderInLayer, spriteLayerData.movingLegBackgroundOrderInLayer);
+                leftFootController.SetFootAndLegOrder(spriteLayerData.idleFootOrderInLayer, spriteLayerData.idleLegOrderInLayer, spriteLayerData.idleLegBackgroundOrderInLayer);
             }
             else
             {
