@@ -69,6 +69,7 @@
      <Compile Include="Assets\Rewired\Internal\Scripts\Editor\CustomInspectors\PlayerMouseInspector.cs" />
      <Compile Include="Assets\Rewired\Internal\Scripts\Editor\CustomInspectors\UserDataStore_PlayerPrefsInspector.cs" />
      <Compile Include="Assets\Rewired\Internal\Scripts\Editor\UnityEditorBridge.cs" />
+     <Compile Include="Assets\Scripts\Autohooks\Editor\AutohookPropertyDrawer.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/Users/Caleb/Documents/GitHub/ParodyJam/PIG Squad Parody Game Jam/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

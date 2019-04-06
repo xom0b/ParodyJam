@@ -125,6 +125,7 @@
      <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
      <Compile Include="Assets\Scripts\AnimateHue.cs" />
      <Compile Include="Assets\Scripts\AnimationTriggerUtility.cs" />
+     <Compile Include="Assets\Scripts\Autohooks\AutohookAttribute.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\CameraShake.cs" />
      <Compile Include="Assets\Scripts\DestroyAnimationUtility.cs" />
