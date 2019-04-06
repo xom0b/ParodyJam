@@ -39,8 +39,6 @@ public class LeaderboardPositionManager : MonoBehaviour
     {
         rectTransform.position = newPosition;
         targetLeaderboardPosition = newPosition;
-        gameObject.SetActive(false);
-        gameObject.SetActive(true);
     }    
 
     void Update()
@@ -48,8 +46,6 @@ public class LeaderboardPositionManager : MonoBehaviour
         if (rectTransform.position != targetLeaderboardPosition)
         {
             rectTransform.position = Vector3.SmoothDamp(rectTransform.position, targetLeaderboardPosition, ref leaderboardVelocity, leaderboardDamp);
-            gameObject.SetActive(false);
-            gameObject.SetActive(true);
         }
     }
 }

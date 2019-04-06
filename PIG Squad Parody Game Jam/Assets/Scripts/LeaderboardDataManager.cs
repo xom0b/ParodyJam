@@ -86,7 +86,7 @@ public class LeaderboardDataManager : MonoBehaviour
     {
         if (lastAddedData != null && lastAddedEntry != null && animateEntryColor)
         {
-            lastAddedEntry.RemoveHueAnimator();
+            lastAddedEntry.DisableHueAnimator();
             lastAddedData = null;
             lastAddedEntry = null;
         }
