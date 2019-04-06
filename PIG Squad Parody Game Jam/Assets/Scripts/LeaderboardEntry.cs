@@ -20,7 +20,8 @@ public class LeaderboardEntry : MonoBehaviour
 
     public void InitializeHueAnimator(float S, float V, float speed)
     {
-        AnimateHue nameAnimator = nameText.GetComponent<AnimateHue>();
+        Debug.Log("Initializing Hue Animator", gameObject);
+        AnimateHue nameAnimator = nameText.gameObject.GetComponent<AnimateHue>();
         if (nameAnimator != null)
         {
             nameAnimator.saturation = S;
@@ -29,7 +30,7 @@ public class LeaderboardEntry : MonoBehaviour
             nameAnimator.StartHueAnimation();
         }
 
-        AnimateHue scoreAnimator = scoreText.GetComponent<AnimateHue>();
+        AnimateHue scoreAnimator = scoreText.gameObject.GetComponent<AnimateHue>();
         if (scoreAnimator != null)
         {
             scoreAnimator.saturation = S;
@@ -39,8 +40,10 @@ public class LeaderboardEntry : MonoBehaviour
         }
     }
 
-    public void RemoveHueAnimator()
+    public void DisableHueAnimator()
     {
+        Debug.Log("Disabling Hue Animator", gameObject);
+
         AnimateHue nameHueAnimator = nameText.gameObject.GetComponent<AnimateHue>();
         AnimateHue scoreHueAnimator = scoreText.gameObject.GetComponent<AnimateHue>();
 

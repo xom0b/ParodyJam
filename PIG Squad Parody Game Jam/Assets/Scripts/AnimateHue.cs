@@ -25,29 +25,23 @@ public class AnimateHue : MonoBehaviour
 
     public void StartHueAnimation()
     {
-        Debug.Log("Starting hue animation");
         if (text == null)
         {
             text = GetComponent<Text>();
         }
+
         colorBeforeAnimating = text.color;
         animatingHue = true;
     }
 
     public void ResetColor()
     {
-        Debug.Log("Resestting COlor");
         text.color = colorBeforeAnimating;
         animatingHue = false;
     }
 
-    void Update()
+    private void Update()
     {
-        if (!gameObject.name.Contains("Letter"))
-        {
-            Debug.Log("IM RUNNING?! animatedHue: " + animatingHue);
-        }
-
         if (animatingHue)
         {
             float currentHue = GetHue(text.color);
