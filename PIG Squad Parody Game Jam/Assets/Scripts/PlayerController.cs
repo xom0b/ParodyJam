@@ -126,7 +126,6 @@ public class PlayerController : MonoBehaviour
         }
 
         splat.transform.position = new Vector2(splatX, mudSplatY);
-
         currentFoot = Foot.None;
         cameraShake.shakeDuration = cameraShakeDuration;
     }

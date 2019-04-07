@@ -63,7 +63,7 @@ public class FootController : MonoBehaviour
     {
         if (raycastHit.collider.tag == floorTag)
         {
-            if (footMovementState == FootMovementState.Stomping || footMovementState == FootMovementState.Moving)
+            if (footMovementState == FootMovementState.Stomping)
             {
                 OnStompEnd();
             }
