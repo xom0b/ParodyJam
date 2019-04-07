@@ -22,10 +22,6 @@ public class RecordController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (onTriggerEnter == null && collision.gameObject.tag != "Floor")
-        {
-            Debug.Log("why is this null " + gameObject, gameObject);
-        }
         if (collision.gameObject.tag == "RecordKiller" && onTriggerEnter != null)
         {
             killedByBoot = false;

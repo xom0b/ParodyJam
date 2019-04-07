@@ -5212,7 +5212,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   slopeLimit: 30
-  jumpingThreshold: 0.07
+  jumpingThreshold: 0
   slopeSpeedMultiplier:
     serializedVersion: 2
     m_Curve:
@@ -5247,7 +5247,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   totalHorizontalRays: 8
-  totalVerticalRays: 4
+  totalVerticalRays: 8
 --- !u!50 &831133236
 Rigidbody2D:
   serializedVersion: 4
@@ -5291,7 +5291,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.405}
+  m_Size: {x: 1.35, y: 0.405}
   m_EdgeRadius: 0
 --- !u!114 &831133238
 MonoBehaviour:
@@ -7353,7 +7353,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   slopeLimit: 30
-  jumpingThreshold: 0.07
+  jumpingThreshold: 0
   slopeSpeedMultiplier:
     serializedVersion: 2
     m_Curve:
@@ -7388,7 +7388,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   totalHorizontalRays: 8
-  totalVerticalRays: 4
+  totalVerticalRays: 8
 --- !u!50 &1169875764
 Rigidbody2D:
   serializedVersion: 4
@@ -7432,7 +7432,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.405}
+  m_Size: {x: 1.35, y: 0.405}
   m_EdgeRadius: 0
 --- !u!114 &1169875766
 MonoBehaviour:
