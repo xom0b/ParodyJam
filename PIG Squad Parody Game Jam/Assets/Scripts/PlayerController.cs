@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
                 if (inputThisFrame.onStompDown)
                 {
                     leftFootController.TriggerStomp(stompSpeed);
-                    bodyAnimator.Play("stomp");
+                    bodyAnimator.SetTrigger("Stomp");
                 }
                 else
                 {
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
                 if (inputThisFrame.onStompDown)
                 {
                     rightFootController.TriggerStomp(stompSpeed);
-                    bodyAnimator.Play("stomp");
+                    bodyAnimator.SetTrigger("Stomp");
                 }
                 else
                 {

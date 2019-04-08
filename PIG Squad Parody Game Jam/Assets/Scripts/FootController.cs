@@ -65,7 +65,7 @@ public class FootController : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        GizmosUtils.DrawText(GUI.skin, footMovementState.ToString(), transform.position);
+        //GizmosUtils.DrawText(GUI.skin, footMovementState.ToString(), transform.position);
     }
 #endif
 
