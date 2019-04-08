@@ -158,6 +158,8 @@
      <None Include="Assets\PIDI Game Development Framework\PIDI - 2D Reflections\Standard Version\Shaders\PIDI_2DReflection_RenderBased_Distortion.shader" />
      <None Include="Assets\PIDI Game Development Framework\PIDI - 2D Reflections\Standard Version\Shaders\PIDI_2DReflection_ShaderBased_Distorted_Vertical.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+     <None Include="Assets\Textures\ReflectionShader.shader" />
+     <None Include="Assets\Textures\StandardUnlitShader.shader" />
      <None Include="Assets\Rewired\Documentation\licences.txt" />
      <None Include="Assets\PIDI Game Development Framework\PIDI - 2D Reflections\SRP_Lightweight\Shaders\PIDI_2DReflections_LWRP_Distorted.shader" />
      <None Include="Assets\Rewired\Documentation\ReadMe.txt" />
