@@ -5,37 +5,33 @@ using UnityEngine;
 
 public class RecordStumpScoreEffectSpawner : MonoBehaviour
 {
-    public GameObject goodRecordScoreEffect;
-    public GameObject badRecordScoreEffect;
-    public Vector3 spawnedRecordLocalPosition;
-    public Vector3 spawnedRecordLocalScale;
-    public Vector3 spawnedRecordLocalRotation;
+    public Animator trunkAnimator;
 
-    public void SpawnRecordKillEffect(RecordSpawner.RecordType recordType)
+    public void SpawnRecordKillEffect(RecordController recordController)
     {
-        GameObject recordEffectToSpawn = null;
-        switch (recordType)
+        if (recordController.recordType == RecordSpawner.RecordType.Bad)
         {
-            case RecordSpawner.RecordType.Bad:
-                recordEffectToSpawn = badRecordScoreEffect;
-                break;
-            case RecordSpawner.RecordType.Good:
-                recordEffectToSpawn = goodRecordScoreEffect;
-                break;
+            trunkAnimator.SetTrigger("BlastMud");
         }
-
-        if (recordEffectToSpawn != null)
+        else if (recordController.activeAnimator != null)
         {
-            recordEffectToSpawn = Instantiate(recordEffectToSpawn, transform);
-            SetEffectDefaultTransform(recordEffectToSpawn.transform);
+            if (recordController.activeAnimator == recordController.newRecordGreen)
+            {
+                trunkAnimator.SetTrigger("BlastGreen");
+            }
+            else if (recordController.activeAnimator == recordController.newRecordPink)
+            {
+                trunkAnimator.SetTrigger("BlastPink");
+            }
+            else if (recordController.activeAnimator == recordController.newRecordPurple)
+            {
+                trunkAnimator.SetTrigger("BlastPurple");
+            }
+            else if (recordController.activeAnimator == recordController.newRecordYellow)
+            {
+                trunkAnimator.SetTrigger("BlastYellow");
+            }
         }
-    }
-
-    private void SetEffectDefaultTransform(Transform effectTransform)
-    {
-        effectTransform.localPosition = spawnedRecordLocalPosition;
-        effectTransform.localScale = spawnedRecordLocalScale;
-        effectTransform.localRotation = Quaternion.Euler(spawnedRecordLocalRotation);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,7 +39,7 @@ public class RecordStumpScoreEffectSpawner : MonoBehaviour
         RecordController collidedController = collision.gameObject.GetComponent<RecordController>();
         if (collidedController != null)
         {
-            SpawnRecordKillEffect(collidedController.recordType);
+            SpawnRecordKillEffect(collidedController);
         }
     }
 }

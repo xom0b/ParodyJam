@@ -19,7 +19,8 @@ public class RecordController : MonoBehaviour
     public float moveSpeed;
     public Vector2 moveDirection;
 
-    private GameObject activeAnimator = null;
+    [HideInInspector]
+    public GameObject activeAnimator = null;
     private Vector3 deltaMovement = new Vector3();
     private bool ignoringCollisions = false;
 
