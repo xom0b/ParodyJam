@@ -20,7 +20,6 @@ public class LeaderboardEntry : MonoBehaviour
 
     public void InitializeHueAnimator(float S, float V, float speed)
     {
-        Debug.Log("Initializing Hue Animator", gameObject);
         AnimateHue nameAnimator = nameText.gameObject.GetComponent<AnimateHue>();
         if (nameAnimator != null)
         {
@@ -42,8 +41,6 @@ public class LeaderboardEntry : MonoBehaviour
 
     public void DisableHueAnimator()
     {
-        Debug.Log("Disabling Hue Animator", gameObject);
-
         AnimateHue nameHueAnimator = nameText.gameObject.GetComponent<AnimateHue>();
         AnimateHue scoreHueAnimator = scoreText.gameObject.GetComponent<AnimateHue>();
 

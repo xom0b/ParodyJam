@@ -3916,9 +3916,14 @@ MonoBehaviour:
   overallAnimation: {fileID: 0}
   tophatAnimation: {fileID: 0}
   stinkyAnimation: {fileID: 0}
-  deathAnimation: {fileID: 0}
+  newRecordGreen: {fileID: 0}
+  newRecordPink: {fileID: 0}
+  newRecordPurple: {fileID: 0}
+  newRecordStank: {fileID: 0}
+  newRecordYellow: {fileID: 0}
+  badRecordKillAnimation: {fileID: 0}
+  badRecordKillAnimationOffset: {x: 0, y: 0, z: 0}
   recordType: 0
-  recordFlavor: 0
   moveSpeed: 0
   moveDirection: {x: 0, y: 0}
 --- !u!1 &687193659
@@ -7681,7 +7686,7 @@ Prefab:
     - target: {fileID: 212796907678964404, guid: ccdf83dde80e254459e859e09d491439,
         type: 2}
       propertyPath: m_SortingOrder
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 212796907678964404, guid: ccdf83dde80e254459e859e09d491439,
         type: 2}
@@ -7692,6 +7697,10 @@ Prefab:
         type: 2}
       propertyPath: m_SortingLayer
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488021499641690, guid: ccdf83dde80e254459e859e09d491439, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccdf83dde80e254459e859e09d491439, type: 2}
@@ -12584,8 +12593,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1619700069196222, guid: aacb95400fa0b3a4091c7a31079264f5, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114453759902407710, guid: aacb95400fa0b3a4091c7a31079264f5,
+        type: 2}
+      propertyPath: badRecordKillAnimation
+      value: 
+      objectReference: {fileID: 1515029560052480, guid: 085ce0f2695d5364f91a6308be1e542e,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aacb95400fa0b3a4091c7a31079264f5, type: 2}
   m_IsPrefabAsset: 0

@@ -5,10 +5,6 @@ using UnityEngine;
 public class RecordSpawner : MonoBehaviour
 {
     public GameObject record;
-    public GameObject recordKillAnimation;
-    public GameObject badRecordKillAnimation;
-
-    public Vector3 recordSpawnOffset;
     public Vector2 moveDirection;
     public float minTimeBetweenRecordsSeconds;
     public float maxTimeBetweenRecordsSeconds;
@@ -27,14 +23,6 @@ public class RecordSpawner : MonoBehaviour
     {
         Good,
         Bad
-    }
-
-    public enum Costume
-    {
-        Durag,
-        Overall,
-        TopHat,
-        Stinky
     }
 
     private void Update()
@@ -60,30 +48,6 @@ public class RecordSpawner : MonoBehaviour
         }
     }
 
-    private void OnRecordCollision(RecordController recordController, Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Foot")
-        {
-            GameObject leftFoot = GameObject.Find("LeftFoot");
-            GameObject rightFoot = GameObject.Find("RightFoot");
-
-            if (collision.gameObject == leftFoot)
-            {
-                if (leftFoot.GetComponent<FootController>().footMovementState == FootController.FootMovementState.Stomping)
-                {
-                    Destroy(recordController.gameObject);
-                }
-            }
-            else if (collision.gameObject == rightFoot)
-            {
-                if (rightFoot.GetComponent<FootController>().footMovementState == FootController.FootMovementState.Stomping)
-                {
-                    Destroy(recordController.gameObject);
-                }
-            }
-        }
-    }
-
     private void ResetSpawnTimer()
     {
         float goodOrBadDecider = Random.value;
@@ -101,21 +65,24 @@ public class RecordSpawner : MonoBehaviour
 
         if (recordType == RecordType.Bad)
         {
-            recordController.stinkyAnimation.SetActive(true);
+            recordController.SetActiveAnimator(recordController.newRecordStank);
         }
         else
         {
-            int range = Random.Range(0, 3);
+            int range = Random.Range(0, 4);
             switch(range)
             {
                 case 0:
-                    recordController.duragAnimation.SetActive(true);
+                    recordController.SetActiveAnimator(recordController.newRecordGreen);
                     break;
                 case 1:
-                    recordController.overallAnimation.SetActive(true);
+                    recordController.SetActiveAnimator(recordController.newRecordPink);
                     break;
                 case 2:
-                    recordController.tophatAnimation.SetActive(true);
+                    recordController.SetActiveAnimator(recordController.newRecordPurple);
+                    break;
+                case 3:
+                    recordController.SetActiveAnimator(recordController.newRecordYellow);
                     break;
             }
         }
@@ -129,22 +96,5 @@ public class RecordSpawner : MonoBehaviour
 
         float recordMoveSpeed = Random.Range(minRecordSpawnSpeed, maxRecordSpawnSpeed);
         recordController.moveSpeed = recordMoveSpeed;
-        recordController.onTriggerEnter += OnRecordCollision;
-        recordController.onDestroy += SpawnRecordKillAnimation;
-    }
-
-    private void SpawnRecordKillAnimation(Transform transform, bool killedByFoot)
-    {
-        if (killedByFoot)
-        {
-            if (transform.GetComponent<RecordController>().recordType == RecordType.Bad)
-            {
-                GameObject newBadRecordKillAnimation = Instantiate(badRecordKillAnimation);
-                newBadRecordKillAnimation.transform.position = transform.position + recordSpawnOffset;
-            }
-
-            GameObject spawnedRecordKillAnimation = Instantiate(recordKillAnimation);
-            spawnedRecordKillAnimation.transform.position = transform.position + recordSpawnOffset;
-        }
     }
 }
