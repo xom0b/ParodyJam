@@ -131,6 +131,7 @@
      <Compile Include="Assets\Scripts\DestroyAnimationUtility.cs" />
      <Compile Include="Assets\Scripts\FootController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GizmoUtils.cs" />
      <Compile Include="Assets\Scripts\IntegrityManager.cs" />
      <Compile Include="Assets\Scripts\LeaderboardDataManager.cs" />
      <Compile Include="Assets\Scripts\LeaderboardEntry.cs" />
