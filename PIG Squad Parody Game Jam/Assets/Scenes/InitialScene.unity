@@ -3324,7 +3324,7 @@ Animator:
   m_GameObject: {fileID: 596307484}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e32572d9d86a2684abfbc016cd5cc45b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8ebf6f13b33a63b47ba9e70742ff21e1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5306,6 +5306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foot: 1
   characterController: {fileID: 831133235}
+  animator: {fileID: 1563579834}
   footSprite: {fileID: 1563579835}
   legRenderer: {fileID: 1695123618}
   legBackgroundRenderer: {fileID: 1561889455}
@@ -7447,6 +7448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foot: 2
   characterController: {fileID: 1169875763}
+  animator: {fileID: 596307486}
   footSprite: {fileID: 596307487}
   legRenderer: {fileID: 1958681146}
   legBackgroundRenderer: {fileID: 1484470807}
@@ -10735,7 +10737,7 @@ Animator:
   m_GameObject: {fileID: 1563579832}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e32572d9d86a2684abfbc016cd5cc45b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8ebf6f13b33a63b47ba9e70742ff21e1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

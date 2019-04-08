@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
 using Prime31;
+using System.Collections;
 
 public class FootController : MonoBehaviour
 {
     public PlayerController.Foot foot;
     public CharacterController2D characterController;
+    public Animator animator;
     public event Action<RaycastHit2D> onCollisionEvent;
     public event Action<PlayerController.Foot> onFootStompEnd;
     public SpriteRenderer footSprite;
@@ -53,11 +55,19 @@ public class FootController : MonoBehaviour
         characterController.move(stompDirection.normalized * currentStompSpeed);
     }
 
-    private void OnStompEnd()
-    { 
+    IEnumerator WaitForFrameAndEndStomp()
+    {
+        yield return new WaitForEndOfFrame();
         footMovementState = FootMovementState.Idle;
         onFootStompEnd(foot);
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        GizmosUtils.DrawText(GUI.skin, footMovementState.ToString(), transform.position);
+    }
+#endif
 
     private void OnCollision(RaycastHit2D raycastHit)
     {
@@ -65,7 +75,8 @@ public class FootController : MonoBehaviour
         {
             if (footMovementState == FootMovementState.Stomping)
             {
-                OnStompEnd();
+
+                StartCoroutine(WaitForFrameAndEndStomp());
             }
         }
     }
@@ -83,6 +94,7 @@ public class FootController : MonoBehaviour
     {
         if (footMovementState == FootMovementState.Moving)
         {
+            animator.SetTrigger("StompBoot");
             footMovementState = FootMovementState.Stomping;
             currentStompSpeed = stompSpeed;
         }
@@ -93,6 +105,7 @@ public class FootController : MonoBehaviour
         switch (footMovementState)
         {
             case FootMovementState.Idle:
+                animator.SetTrigger("LiftBoot");
                 footMovementState = FootMovementState.Moving;
                 characterController.move(deltaMovement);
                 break;
