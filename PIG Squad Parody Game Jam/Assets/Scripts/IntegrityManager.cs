@@ -11,6 +11,9 @@ public class IntegrityManager : MonoBehaviour
     public int playerId;
 
     [Header("Integrity")]
+    public GameObject mudEffect;
+    public GameObject shimmerEffect;
+    public Animator integrityBarAnimator;
     public int maxIntegrity;
     public int goodRecordIntegrity;
     public int badRecordIntegrity;
@@ -29,7 +32,6 @@ public class IntegrityManager : MonoBehaviour
     public Text timer;
     public GameObject integrityBar;
     public Animator allThatIsGoodIsNasty;
-    public RectTransform integrityContainer;
     public Transform integrityIndicator;
     public float minOffset;
     public float maxOffset;
@@ -40,7 +42,6 @@ public class IntegrityManager : MonoBehaviour
     [Header("Game References")]
     public GameObject spawnerRight;
     public GameObject spawnerLeft;
-
 
     [HideInInspector]
     public int currentIntegrity;
@@ -64,6 +65,8 @@ public class IntegrityManager : MonoBehaviour
     private RecordSpawner[] recordSpawners;
 
     private Player player;
+
+    private int maxIntegrityBarOrderInLayer = 2;
 
     public enum GameState
     {
@@ -98,14 +101,14 @@ public class IntegrityManager : MonoBehaviour
         startingMaxRecordSpawnSpeed = recordSpawners[0].maxRecordSpawnSpeed;
         startingRecordSpawnRatio = recordSpawners[0].recordSpawnRatio;
 
+        integrityBar.SetActive(false);
         timer.gameObject.SetActive(false);
-
         spawnerLeft.SetActive(false);
         spawnerRight.SetActive(false);
 
-        float absoluteIndicatorDistance = Mathf.Abs(minOffset) - Mathf.Abs(maxOffset);
-        float position = absoluteIndicatorDistance * 0.5f;
-        currentOffset = minOffset + position;
+        //float absoluteIndicatorDistance = Mathf.Abs(minOffset) - Mathf.Abs(maxOffset);
+        //float position = absoluteIndicatorDistance * 0.5f;
+        currentOffset = minOffset;
 
         player = ReInput.players.GetPlayer(playerId);
     }
@@ -191,6 +194,7 @@ public class IntegrityManager : MonoBehaviour
         }
     }
 
+    #region Private Methods
     private void SendAllThatIsGoodIsNasty()
     {
         allThatIsGoodIsNasty.SetTrigger("outTrigger");
@@ -297,15 +301,39 @@ public class IntegrityManager : MonoBehaviour
         timer.text = currentTime.ToString("F1");
     }
 
+    private void TriggerMudEffect()
+    {
+        maxIntegrityBarOrderInLayer++;
+        GameObject newMudEffect = Instantiate(mudEffect, integrityBar.transform);
+        newMudEffect.GetComponent<SpriteRenderer>().sortingOrder = maxIntegrityBarOrderInLayer;
+        integrityBarAnimator.SetTrigger("TriggerMud");
+    }
+
+    private void TriggerShimmerEffect()
+    {
+        maxIntegrityBarOrderInLayer++;
+        GameObject newShimmerEffect = Instantiate(shimmerEffect, integrityBar.transform);
+        newShimmerEffect.GetComponent<SpriteRenderer>().sortingOrder = maxIntegrityBarOrderInLayer;
+        integrityBarAnimator.SetTrigger("TriggerShimmer");
+    }
+    #endregion
+
+    public void OnBarAnimationEnd()
+    {
+        maxIntegrityBarOrderInLayer--;
+    }
+
     public void KilledRecord(RecordSpawner.RecordType recordType)
     {
         switch (recordType)
         {
             case RecordSpawner.RecordType.Bad:
                 currentIntegrity += badRecordIntegrity;
+                TriggerMudEffect();
                 break;
             case RecordSpawner.RecordType.Good:
                 currentIntegrity += goodRecordIntegrity;
+                TriggerShimmerEffect();
                 break;
         }
     }
