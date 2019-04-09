@@ -1,24 +1,23 @@
 fileFormatVersion: 2
-guid: 97f95b615d5fcbe408142ccdc95d2602
+guid: 6eafcf247b868d244882b19c8897574f
 TextureImporter:
   fileIDToRecycleName:
-    21300000: waterSplash_0
-    21300002: waterSplash_1
-    21300004: waterSplash_2
-    21300006: waterSplash_3
-    21300008: waterSplash_4
-    21300010: waterSplash_5
-    21300012: waterSplash_6
-    21300014: waterSplash_7
-    21300016: waterSplash_8
-    21300018: waterSplash_9
-    21300020: waterSplash_10
-    21300022: waterSplash_11
-    21300024: waterSplash_12
-    21300026: waterSplash_13
-    21300028: waterSplash_14
-    21300030: waterSplash_15
-    21300032: waterSplash_16
+    21300000: boot01_0
+    21300002: boot01_1
+    21300004: boot01_2
+    21300006: boot01_3
+    21300008: boot01_4
+    21300010: boot01_5
+    21300012: boot01_6
+    21300014: boot01_7
+    21300016: boot01_8
+    21300018: boot01_9
+    21300020: boot01_10
+    21300022: boot01_11
+    21300024: boot01_12
+    21300026: boot01_13
+    21300028: boot01_14
+    21300030: boot01_15
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -101,341 +100,321 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: waterSplash_0
+      name: boot01_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 896
-        width: 256
-        height: 128
+        y: 1536
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 262d53fa7618d174fac47d1453ff1c04
+      spriteID: f29db2d85f9ba91489280874a4b5e093
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_1
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 896
-        width: 256
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 773fcf63d36f8d54a9b0ba2f169e20eb
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterSplash_2
+      name: boot01_1
       rect:
         serializedVersion: 2
         x: 512
-        y: 896
-        width: 256
-        height: 128
+        y: 1536
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c75f7c82763547b489d499d6524d2d0c
+      spriteID: db7692ddf2d5290459e8a96cb42a6d3b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_3
+      name: boot01_2
       rect:
         serializedVersion: 2
-        x: 768
-        y: 896
-        width: 256
-        height: 128
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92f3bdec989160248bf31f31d612a88d
+      spriteID: 6863af762028d2641b3dd5c0a58d485a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_4
+      name: boot01_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9edc38bd38335bb45ab3561ce868f63a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boot01_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 768
-        width: 256
-        height: 128
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d51253cac4b07c498934fed5d920c29
+      spriteID: 2664a00f2264dbb4199c229b999b6719
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_5
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 768
-        width: 256
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1f948b65b338c934a98009d1caa0219f
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterSplash_6
+      name: boot01_5
       rect:
         serializedVersion: 2
         x: 512
-        y: 768
-        width: 256
-        height: 128
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0df299b35bec0b488ab7a68f8a07492
+      spriteID: 62b9b1f3748983b4a951b5ec3528a86f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_7
+      name: boot01_6
       rect:
         serializedVersion: 2
-        x: 768
-        y: 768
-        width: 256
-        height: 128
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8406aca8ebdb3bd4ea044b722c7bfef3
+      spriteID: 3592a1f416545644a8eef2fe9cab7e5b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_8
+      name: boot01_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 640
-        width: 256
-        height: 128
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15ef5eea73459ad4495335325af6cd06
+      spriteID: fa221da4a7b0e7d478fd28b634ee5709
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_9
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 640
-        width: 256
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 80bcff84281492f459c219f8d01bcd9b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterSplash_10
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 640
-        width: 256
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6f7e09beb650f0045a6be543c5ceaacd
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterSplash_11
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 640
-        width: 256
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a0a46a401d7fce14dae60164d328f9f2
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterSplash_12
+      name: boot01_8
       rect:
         serializedVersion: 2
         x: 0
         y: 512
-        width: 256
-        height: 128
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ce89619cd017134a85532d1341a4a40
+      spriteID: 23faac3d15794e548a8f633f16e724a8
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_13
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 512
-        width: 256
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a96016d5a9ff8a845ac82a747b200f84
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterSplash_14
+      name: boot01_9
       rect:
         serializedVersion: 2
         x: 512
         y: 512
-        width: 256
-        height: 128
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 039be57838c8db542887dd1b4824fbc0
+      spriteID: 7aa1258e73e252c409450e1cf0a42fe0
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_15
+      name: boot01_10
       rect:
         serializedVersion: 2
-        x: 768
+        x: 1024
         y: 512
-        width: 256
-        height: 128
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc5864f37891c3043b2c44be41b8e779
+      spriteID: 1208d96cd59e7354691eb55f5bcd3eac
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterSplash_16
+      name: boot01_11
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3efb9bfb100b926469188736b600ae08
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boot01_12
       rect:
         serializedVersion: 2
         x: 0
-        y: 384
-        width: 256
-        height: 128
+        y: 0
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 548dd21123941f543b8ee50e0182a79f
+      spriteID: 6db757aae97be09418597c0c981e1f7c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boot01_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d49e43524f29c7648be05072953dda8f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boot01_14
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dcf9dad7b6319745851f6e45d1f7004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boot01_15
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54c92812b0792a7498bed544c1788609
       vertices: []
       indices: 
       edges: []
@@ -443,7 +422,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: f071bf19028cd5642b446f6ca089229c
+    spriteID: 05133ea433474d743aa1eb4fc047a341
     vertices: []
     indices: 
     edges: []

@@ -130,6 +130,8 @@
      <Compile Include="Assets\Scripts\CameraShake.cs" />
      <Compile Include="Assets\Scripts\DestroyAnimationUtility.cs" />
      <Compile Include="Assets\Scripts\FootController.cs" />
+     <Compile Include="Assets\Scripts\FunkBarMud.cs" />
+     <Compile Include="Assets\Scripts\FunkBarShimmer.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GizmoUtils.cs" />
      <Compile Include="Assets\Scripts\IntegrityManager.cs" />
