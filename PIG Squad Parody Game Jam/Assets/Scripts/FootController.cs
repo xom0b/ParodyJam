@@ -24,6 +24,8 @@ public class FootController : MonoBehaviour
         Stomping
     }
 
+    private bool waitingForStomp;
+    private const float kWaitForStompTime = 0.05f;
     private float currentStompSpeed = 0f;
     private const string floorTag = "Floor";
 
@@ -55,19 +57,12 @@ public class FootController : MonoBehaviour
         characterController.move(stompDirection.normalized * currentStompSpeed);
     }
 
-    IEnumerator WaitForFrameAndEndStomp()
+    IEnumerator WaitForStateChange()
     {
-        yield return new WaitForEndOfFrame();
-        footMovementState = FootMovementState.Idle;
-        onFootStompEnd(foot);
+        waitingForStomp = true;
+        yield return new WaitForSeconds(kWaitForStompTime);
+        waitingForStomp = false;
     }
-
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        //GizmosUtils.DrawText(GUI.skin, footMovementState.ToString(), transform.position);
-    }
-#endif
 
     private void OnCollision(RaycastHit2D raycastHit)
     {
@@ -75,8 +70,9 @@ public class FootController : MonoBehaviour
         {
             if (footMovementState == FootMovementState.Stomping)
             {
-
-                StartCoroutine(WaitForFrameAndEndStomp());
+                footMovementState = FootMovementState.Idle;
+                onFootStompEnd(foot);
+                StartCoroutine(WaitForStateChange());
             }
         }
     }
@@ -115,6 +111,11 @@ public class FootController : MonoBehaviour
             case FootMovementState.Stomping:
                 break;
         }
+    }
+
+    public bool WasOrIsStomping()
+    {
+        return footMovementState == FootMovementState.Stomping || waitingForStomp;
     }
     #endregion
 }

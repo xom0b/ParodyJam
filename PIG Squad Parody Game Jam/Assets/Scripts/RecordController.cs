@@ -14,6 +14,7 @@ public class RecordController : MonoBehaviour
     public GameObject newRecordStank;
     public GameObject newRecordYellow;
     public GameObject badRecordKillAnimation; //integriyBlast02
+    public GameObject colliderDebugObject;
     public Vector3 badRecordKillAnimationOffset = new Vector3(0f, 0.254829f, 0f);
     public RecordSpawner.RecordType recordType;
     public float moveSpeed;
@@ -38,11 +39,16 @@ public class RecordController : MonoBehaviour
 
                 Destroy(gameObject);
             }
-            else if (CollidedWithBooth(collision) && activeAnimator != null)
+            else if (CollidedWithBooth(collision))
             {
+                if (activeAnimator != null)
+                {
+                    activeAnimator.GetComponent<Animator>().SetTrigger("OnBreak");
+                }
+
                 moveSpeed = 0f;
                 ignoringCollisions = true;
-                activeAnimator.GetComponent<Animator>().SetTrigger("OnBreak");
+                colliderDebugObject.SetActive(false);
 
                 if (recordType == RecordSpawner.RecordType.Bad)
                 {
@@ -64,14 +70,14 @@ public class RecordController : MonoBehaviour
 
             if (collision.gameObject == leftFoot)
             {
-                if (leftFoot.GetComponent<FootController>().footMovementState == FootController.FootMovementState.Stomping)
+                if (leftFoot.GetComponent<FootController>().WasOrIsStomping())
                 {
                     collidedWithBoot = true;
                 }
             }
             else if (collision.gameObject == rightFoot)
             {
-                if (rightFoot.GetComponent<FootController>().footMovementState == FootController.FootMovementState.Stomping)
+                if (rightFoot.GetComponent<FootController>().WasOrIsStomping())
                 {
                     collidedWithBoot = true;
                 }
@@ -98,12 +104,7 @@ public class RecordController : MonoBehaviour
             }
         }
     }
-
-    public void DestroyRecord()
-    {
-        Destroy(this);
-    }
-
+    
     public void SetActiveAnimator(GameObject recordAnimator)
     {
         activeAnimator = recordAnimator;
