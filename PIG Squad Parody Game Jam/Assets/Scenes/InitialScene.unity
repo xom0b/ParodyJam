@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4053,8 +4053,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1300784453
-  m_SortingLayer: -1
+  m_SortingLayerID: -833042747
+  m_SortingLayer: -2
   m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: e39214598689ce24f82101ac1651eda9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7929,6 +7929,20 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 212796907678964404, guid: ccdf83dde80e254459e859e09d491439,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300012, guid: fc31811de7eb25a4a8b7c54bd500f720,
+        type: 3}
+    - target: {fileID: 4305641263578952, guid: ccdf83dde80e254459e859e09d491439, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305641263578952, guid: ccdf83dde80e254459e859e09d491439, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccdf83dde80e254459e859e09d491439, type: 2}
   m_IsPrefabAsset: 0
@@ -8471,8 +8485,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1300784453
-  m_SortingLayer: -1
+  m_SortingLayerID: -833042747
+  m_SortingLayer: -2
   m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: e39214598689ce24f82101ac1651eda9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -9016,7 +9030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1325392475
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14589,7 +14603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2044417993
 SpriteRenderer:
   m_ObjectHideFlags: 0

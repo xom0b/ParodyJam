@@ -53,9 +53,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CubeDOTweenTest.cs" />
      <Compile Include="Assets\CurvedLine_2016_03_11\CurvedLine\CurvedLinePoint.cs" />
      <Compile Include="Assets\CurvedLine_2016_03_11\CurvedLine\CurvedLineRenderer.cs" />
      <Compile Include="Assets\CurvedLine_2016_03_11\CurvedLine\LineSmoother.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
      <Compile Include="Assets\PIDI Game Development Framework\PIDI - 2D Reflections\Source\PIDI_2DReflection.cs" />
      <Compile Include="Assets\PIDI Game Development Framework\PIDI - 2D Reflections\Source\PIDI_2DSimpleReflection.cs" />
      <Compile Include="Assets\PIDI Game Development Framework\PIDI - 2D Reflections\SRP_Lightweight\Source\PIDI_2DSRPCamera.cs" />
@@ -178,6 +186,7 @@
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\PIDI Game Development Framework\PIDI - 2D Reflections\Standard Version\Shaders\PIDI_2DReflection_RenderBased_Distortion_Vertical.shader" />
+     <None Include="Assets\Demigiant\DOTween\readme.txt" />
      <None Include="Assets\PIDI Game Development Framework\PIDI - 2D Reflections\Standard Version\Shaders\PIDI_2DReflection_ShaderBased_Distortion.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\PIDI Game Development Framework\PIDI - 2D Reflections\Standard Version\Shaders\PIDI_2DReflection_ShaderBased_Vertical.shader" />
@@ -406,6 +415,9 @@
  </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>C:/Users/Caleb/Documents/GitHub/ParodyJam/PIG Squad Parody Game Jam/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="Rewired_Core">
  <HintPath>C:/Users/Caleb/Documents/GitHub/ParodyJam/PIG Squad Parody Game Jam/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
