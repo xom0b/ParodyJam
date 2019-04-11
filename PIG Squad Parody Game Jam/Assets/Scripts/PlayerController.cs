@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using DG.Tweening;
 using Prime31;
 using System;
 
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public FootController leftFootController;
     public FootController rightFootController;
     public Transform bodyTransform;
+    public Transform cameraTransform;
     public float dampTime = 1f;
     public Animator bodyAnimator;
     public CameraShake cameraShake;
@@ -37,13 +39,29 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 2f)]
     public float rumbleDuration;
 
+    [Header("Camera Rotation Options")]
+    public bool rotateOnStomp;
+    public float maxRotationDistanceFromCenter;
+    public float maxRotationAmount;
+    public float rotationInDuration;
+    public float rotationOutDuration;
+    public Ease rotationInEase;
+    public Ease rotationOutEase;
+
+    [Header("WONK MODE OPTIONS")]
+    public float wonkModeRotationAmount;
+    public float wonkModeRotationInDuration;
+    public float wonkModeRotationOutDuration;
+    public Ease wonkModeRotationInEase;
+    public Ease wonkModeRotationOutEase;
+
     [Header("Debug")]
     public bool showDebugDistanceCircles;
 
-    private bool playerActive;
-    private float oscillator = 0f;
     private Player player;
     private InputState inputThisFrame;
+    private bool playerActive;
+    private bool WONK_MODE_ENABLED = false;
 
     private Vector3 movingTowards = new Vector3();
     private Vector3 smoothDampVelocty = Vector3.zero;
@@ -84,6 +102,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         player = ReInput.players.GetPlayer(playerId);
+        
     }
 
     private void Start()
@@ -96,9 +115,22 @@ public class PlayerController : MonoBehaviour
         rightFootController.SetFootAndLegOrder(spriteLayerData.idleFootOrderInLayer, spriteLayerData.idleLegOrderInLayer, spriteLayerData.idleLegBackgroundOrderInLayer);
         movingTowards = transform.position;
     }
-    
+
+    bool ignoringWonkMode = false;
+
     private void Update()
     {
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.K) && !ignoringWonkMode)
+        {
+            Debug.Log("WONK MDOE ENABLED");
+            WONK_MODE_ENABLED = !WONK_MODE_ENABLED;
+            ignoringWonkMode = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.O) || Input.GetKeyUp(KeyCode.N) || Input.GetKeyUp(KeyCode.K))
+        {
+            ignoringWonkMode = false;
+        }
+
         if (playerActive)
         {
             GetInput();
@@ -135,6 +167,25 @@ public class PlayerController : MonoBehaviour
         currentFoot = Foot.None;
         cameraShake.shakeDuration = cameraShakeDuration;
         player.SetVibration(0, rumbleIntensity, rumbleDuration);
+
+        if (WONK_MODE_ENABLED)
+        {
+            float normalizedRotationDistance = Mathf.Clamp(splatX, -maxRotationDistanceFromCenter, maxRotationDistanceFromCenter);
+            float rotationAmount = (normalizedRotationDistance / maxRotationDistanceFromCenter) * wonkModeRotationAmount;
+            Vector3 rotationVector = new Vector3(0f, 0f, rotationAmount);
+            Sequence rotationSequence = rotationSequence = DOTween.Sequence();
+            rotationSequence.Append(cameraTransform.DORotate(rotationVector, wonkModeRotationInDuration).SetEase(wonkModeRotationInEase));
+            rotationSequence.Append(cameraTransform.DORotate(Vector3.zero, wonkModeRotationOutDuration).SetEase(wonkModeRotationOutEase));
+        }
+        else
+        {
+            float normalizedRotationDistance = Mathf.Clamp(splatX, -maxRotationDistanceFromCenter, maxRotationDistanceFromCenter);
+            float rotationAmount = (normalizedRotationDistance / maxRotationDistanceFromCenter) * maxRotationAmount;
+            Vector3 rotationVector = new Vector3(0f, 0f, rotationAmount);
+            Sequence rotationSequence = rotationSequence = DOTween.Sequence();
+            rotationSequence.Append(cameraTransform.DORotate(rotationVector, rotationInDuration).SetEase(rotationInEase));
+            rotationSequence.Append(cameraTransform.DORotate(Vector3.zero, rotationOutDuration).SetEase(rotationOutEase));
+        }
     }
 
     private void HandleFeet()
@@ -165,7 +216,6 @@ public class PlayerController : MonoBehaviour
                 {
                     MoveRubberBand(rightFootController);
                 }
-
                 break;
         }
     }
