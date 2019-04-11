@@ -31,6 +31,12 @@ public class PlayerController : MonoBehaviour
     [Header("Sprite Ordering")]
     public SpriteLayerData spriteLayerData;
 
+    [Header("Rumble Variables")]
+    [Range(0f, 1f)]
+    public float rumbleIntensity;
+    [Range(0f, 2f)]
+    public float rumbleDuration;
+
     [Header("Debug")]
     public bool showDebugDistanceCircles;
 
@@ -128,6 +134,7 @@ public class PlayerController : MonoBehaviour
         splat.transform.position = new Vector2(splatX, mudSplatY);
         currentFoot = Foot.None;
         cameraShake.shakeDuration = cameraShakeDuration;
+        player.SetVibration(0, rumbleIntensity, rumbleDuration);
     }
 
     private void HandleFeet()
